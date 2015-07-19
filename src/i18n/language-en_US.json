@@ -1,0 +1,10 @@
+{
+  "views.index.app.title": "SG Travel Buddy",
+  "views.index.menu": "Menu",
+  "views.index.chat": "Chat",
+  "views.index.docs": "Docs",
+  "views.index.sources": "Sources",
+  "views.index.issues": "Issues",
+  "views.home.welcome.message": "Welcome to",
+  "views.sidebar.menu.home": "Home"
+}
