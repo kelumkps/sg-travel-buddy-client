@@ -3,7 +3,7 @@
 angular.module('SGTravelBuddy.translator', [
     'app.i18n',
     'pascalprecht.translate'// angular-translate
-]).config(function ($translateProvider) {
+]).config(['$translateProvider', function ($translateProvider) {
     $translateProvider
         .useMissingTranslationHandlerLog()
         .fallbackLanguage('en_US')
@@ -15,4 +15,4 @@ angular.module('SGTravelBuddy.translator', [
         })
         .useLoaderCache('$translationCache');
     //  $translateProvider.useLocalStorage();// saves selected language to localStorage
-});
+}]);

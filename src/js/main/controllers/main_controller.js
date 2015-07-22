@@ -2,6 +2,6 @@
 
 angular.module('SGTravelBuddy')
 
-    .controller('MainController', function ($scope) {
+    .controller('MainController', ['$scope', function ($scope) {
 
-    });
+    }]);
