@@ -1,10 +1,15 @@
 {
-  "views.index.app.title": "SG Travel Buddy",
+  "views.app.title": "Test App",
   "views.index.menu": "Menu",
   "views.index.chat": "Chat",
   "views.index.docs": "Docs",
   "views.index.sources": "Sources",
   "views.index.issues": "Issues",
   "views.home.welcome.message": "Welcome to",
-  "views.sidebar.menu.home": "Home"
+  "views.sidebar.menu.home": "Home",
+  "views.login.login": "Login",
+  "views.login.email": "Email",
+  "views.login.password": "Password",
+  "views.login.rememberme": "Remember Me",
+  "views.login.email.message": "Enter email"
 }

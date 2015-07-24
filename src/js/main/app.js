@@ -19,8 +19,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
         });
     $routeProvider.when('/login',
         {
-            templateUrl: 'home.html',
-            controller: 'MainController',
+            templateUrl: 'login.html',
+            controller: 'LoginCtrl',
             access: access.guest
         });
     $routeProvider.when('/register',
@@ -66,7 +66,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
 }]);
 
-app.run(['$rootScope', '$location', '$http', 'Authorizer', function ($rootScope, $location, $http, Authorizer) {
+app.run(['$rootScope', '$location', 'Authorizer', function ($rootScope, $location, Authorizer) {
 
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $rootScope.error = null;

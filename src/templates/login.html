@@ -1,0 +1,45 @@
+<div ui-content-for="title">
+  <span>{{"views.app.title" | translate}}</span>
+</div>
+
+<div class="scrollable">
+ <div class="scrollable-content section">
+   
+  <form role="form" ng-submit='login()'>
+    <fieldset>
+      <legend>{{"views.login.login" | translate}}</legend>
+        <div class="form-group has-success has-feedback">
+          <label>{{"views.login.email" | translate}}</label>
+          <input type="email"
+                 ng-model="email"
+                 class="form-control"
+                 placeholder="{{'views.login.email.message' | translate}}">
+        </div>
+
+        <div class="form-group">
+          <label>{{"views.login.password" | translate}}</label>
+          <input type="password" 
+                 ng-model="password"
+                 class="form-control"
+                 placeholder="{{'views.login.password' | translate}}">
+        </div>
+
+        <div class="form-group">
+          <label>{{"views.login.rememberme" | translate}}</label>
+          <ui-switch 
+            ng-model='rememberMe'></ui-switch>
+        </div>
+    </fieldset>
+    <hr>
+
+    <button class="btn btn-primary btn-block">
+      {{"views.login.login" | translate}}
+    </button>
+
+    <div ui-content-for="navbarAction">
+      <a class='btn' ng-click='login()'>{{"views.login.login" | translate}}</a>
+    </div>
+
+  </form>
+ </div>
+</div>
