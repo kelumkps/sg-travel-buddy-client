@@ -31,14 +31,22 @@ angular.module('SGTravelBuddy.auth')
             },
             register: function (user, success, error) {
                 Authenticator.register(user, function (res) {
-                    changeUser(res);
+                    user = {
+                        username: res.username,
+                        role: userRoles[res.role]
+                    };
+                    changeUser(user);
                     success();
                 }, error);
             },
             login: function (user, success, error) {
-                Authenticator.login(user, function (user) {
+                Authenticator.login(user, function (res) {
+                    user = {
+                        username: res.username,
+                        role: userRoles[res.role]
+                    };
                     changeUser(user);
-                    success(user);
+                    success();
                 }, error);
             },
             logout: function (success, error) {

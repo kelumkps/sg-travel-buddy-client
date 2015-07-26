@@ -1,5 +1,9 @@
 {
-  "views.app.title": "Test App",
+  "views.app.title": "SG Travel Buddy",
+  "views.app.success.prefix": "Success!",
+  "views.app.info.prefix": "Note!",
+  "views.app.warning.prefix": "Warning!",
+  "views.app.error.prefix": "Oh no!",
   "views.index.menu": "Menu",
   "views.index.chat": "Chat",
   "views.index.docs": "Docs",
@@ -11,5 +15,6 @@
   "views.login.email": "Email",
   "views.login.password": "Password",
   "views.login.rememberme": "Remember Me",
-  "views.login.email.message": "Enter email"
+  "views.login.email.message": "Enter email",
+  "views.login.invalid.message": "Invalid Username/Password!"
 }

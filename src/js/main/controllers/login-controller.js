@@ -2,20 +2,20 @@
 
 angular.module('SGTravelBuddy')
 
-    .controller('LoginCtrl', ['$rootScope', '$scope', '$location', 'Authorizer', function ($rootScope, $scope, $location, Authorizer) {
+    .controller('LoginCtrl', ['$scope', '$location', '$translate', 'Authorizer', function ($scope, $location, $translate, Authorizer) {
+        $scope.messages = {};
         $scope.rememberMe = false;
         $scope.login = function () {
-            $rootScope.error = "Failed to login";
             Authorizer.login({
                     email: $scope.email,
                     password: $scope.password,
                     rememberme: $scope.rememberMe
                 },
-                function (res) {
+                function () {
                     $location.path('/');
                 },
                 function (err) {
-                    $rootScope.error = "Failed to login";
+                    $scope.messages.error = $translate.instant('views.login.invalid.message');
                 });
         };
     }]);

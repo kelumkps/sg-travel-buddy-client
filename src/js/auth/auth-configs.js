@@ -26,7 +26,7 @@
             'admin': ['admin']
         }
 
-    }
+    };
 
     exports.userRoles = buildRoles(config.roles);
     exports.accessLevels = buildAccessLevels(config.accessLevels, exports.userRoles);

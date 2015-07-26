@@ -1,0 +1,20 @@
+<div id="successAlertBox" data-ng-show="messages.success" class="alert alert-success fade in">
+    <button type="button" data-ng-click="messages.success = null;" class="close">&times;</button>
+    <strong>{{"views.app.success.prefix" | translate}}&nbsp;</strong>
+    <span data-ng-bind="messages.success"></span>
+</div>
+<div id="infoAlertBox" data-ng-show="messages.info" class="alert alert-info fade in">
+    <button type="button" data-ng-click="messages.info = null;" class="close">&times;</button>
+    <strong>{{"views.app.info.prefix" | translate}}&nbsp;</strong>
+    <span data-ng-bind="messages.info"></span>
+</div>
+<div id="warningAlertBox" data-ng-show="messages.warning" class="alert alert-warning fade in">
+    <button type="button" data-ng-click="messages.warning = null;" class="close">&times;</button>
+    <strong>{{"views.app.warning.prefix" | translate}}&nbsp;</strong>
+    <span data-ng-bind="messages.warning"></span>
+</div>
+<div id="alertBox" data-ng-show="messages.error" class="alert alert-danger fade in">
+    <button type="button" ng-click="messages.error = null;" class="close">&times;</button>
+    <strong>{{"views.app.error.prefix" | translate}}&nbsp;</strong>
+    <span data-ng-bind="messages.error"></span>
+</div>
