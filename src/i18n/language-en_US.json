@@ -16,5 +16,9 @@
   "views.login.password": "Password",
   "views.login.rememberme": "Remember Me",
   "views.login.email.message": "Enter email",
-  "views.login.invalid.message": "Invalid Username/Password!"
+  "views.login.invalid.message": "Invalid Username/Password!",
+  "views.home.search.text": "Bus service number e.g.: 28",
+  "views.home.search.show": "Show",
+  "views.home.search.hide": "Hide",
+  "views.home.search.bar":"Search Bar"
 }

@@ -14,8 +14,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     $routeProvider.when('/',
         {
             templateUrl: 'home.html',
-            controller: 'MainController',
-            access: access.user
+            controller: 'MainCtrl',
+            access: access.guest
         });
     $routeProvider.when('/login',
         {

@@ -1,3 +1,33 @@
-<section class="section container-fluid">
-    <h1 class="page-header">{{"views.home.welcome.message" | translate}} {{"views.app.title" | translate}}</h1>
-</section>
+<!-- <section class="section container-fluid">
+	<div class="input-group">
+	    <input type="text" class="form-control" placeholder="Bus service number e.g.: 28"/>
+	    <span class="input-group-addon">
+	        <i class="fa fa-search"></i>
+	    </span>
+	</div>    
+</section> -->
+
+<div class="scrollable" ui-state="searchBar" ui-default='1'>
+  <input
+    ng-if="Ui.active('searchBar')"
+    type="search"
+    class="form-control scrollable-header"
+    placeholder="{{'views.home.search.text' | translate}}"
+    ng-model="searchText"/>
+
+
+  <div class="scrollable-content" ui-scroll-bottom='bottomReached()'>
+    <div class="list-group">
+      <a ng-repeat="item in scrollItems" href="#" class="list-group-item">
+        <strong>{{ item }}</strong> <i class="fa fa-chevron-right pull-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <a class="btn btn-block btn-sm btn-primary scrollable-footer" ui-toggle='searchBar'>
+    <i class="fa fa-search"></i> 
+    <span ui-hide="searchBar">{{"views.home.search.show" | translate}}</span>
+    <span ui-show="searchBar">{{"views.home.search.hide" | translate}}</span>
+    {{"views.home.search.bar" | translate}}
+  </a>
+</div>
