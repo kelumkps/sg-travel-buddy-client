@@ -15,42 +15,36 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
         {
             templateUrl: 'home.html',
             controller: 'MainController',
-            access: access.user,
-            reloadOnSearch: false
+            access: access.user
         });
     $routeProvider.when('/login',
         {
             templateUrl: 'login.html',
             controller: 'LoginCtrl',
-            access: access.guest,
-            reloadOnSearch: false
+            access: access.guest
         });
     $routeProvider.when('/register',
         {
             templateUrl: 'register.html',
             controller: 'RegisterCtrl',
-            access: access.guest,
-            reloadOnSearch: false
+            access: access.guest
         });
     $routeProvider.when('/settings',
         {
             templateUrl: 'settings.html',
             controller: 'RegisterCtrl',
-            access: access.public,
-            reloadOnSearch: false
+            access: access.public
         });
     $routeProvider.when('/private',
         {
             templateUrl: 'private.html',
             controller: 'MainController',
-            access: access.user,
-            reloadOnSearch: false
+            access: access.user
         });
     $routeProvider.when('/404',
         {
             templateUrl: '404.html',
-            access: access.public,
-            reloadOnSearch: false
+            access: access.public
         });
     $routeProvider.otherwise({redirectTo: '/404'});
 
