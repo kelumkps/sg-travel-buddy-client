@@ -48,7 +48,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
         });
     $routeProvider.otherwise({redirectTo: '/404'});
 
-    //$locationProvider.html5Mode(true);  todo enable this
+    //$locationProvider.html5Mode(true); // todo enable this
 
     $httpProvider.interceptors.push(function ($q, $location) {
         return {
@@ -69,8 +69,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 app.run(['$rootScope', '$location', 'Authorizer', function ($rootScope, $location, Authorizer) {
 
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
-        $rootScope.error = null;
-        if (!Authorizer.authorize(next.access)) {
+        if (next && next.$$route.originalPath === ""
+            && next.$$route.redirectTo && next.$$route.redirectTo === "/") {
+            $location.path('/');
+        } else if (!Authorizer.authorize(next.access)) {
             if (Authorizer.isLoggedIn()) $location.path('/');
             else $location.path('/login');
         }
