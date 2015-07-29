@@ -35,9 +35,15 @@
             <button class="btn btn-primary btn-block">
                 {{"views.login.login" | translate}}
             </button>
+            <br>
+
+            <div class="pull-left">
+                <span>{{"views.home.register.text" | translate}} </span>
+                <a class="btn-link" href="#/register">{{"views.login.signup" | translate}}</a>
+            </div>
 
             <div ui-content-for="navbarAction">
-                <a class='btn' ng-click='login()'>{{"views.login.login" | translate}}</a>
+                <a class='btn' type="submit" ng-click='login()'>{{"views.login.login" | translate}}</a>
             </div>
         </form>
     </div>

@@ -33,8 +33,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     $routeProvider.when('/settings',
         {
             templateUrl: 'settings.html',
-            controller: 'RegisterCtrl',
-            access: access.public
+            access: access.user
         });
     $routeProvider.when('/search-bus',
         {

@@ -1,0 +1,60 @@
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <div ng-include="'alerts.html'"></div>
+        <form name="registerForm" role="form" ng-submit='register()'>
+            <fieldset>
+                <legend>{{"views.register.signup" | translate}}</legend>
+                <div class="form-group has-success has-feedback">
+                    <label>{{"views.register.name" | translate}}</label>
+                    <input type="text"
+                           ng-model="uname"
+                           class="form-control"
+                           placeholder="{{'views.register.name.message' | translate}}"
+                           ng-required="true">
+                </div>
+                <div class="form-group has-success has-feedback">
+                    <label>{{"views.login.email" | translate}}</label>
+                    <input type="email"
+                           ng-model="email"
+                           class="form-control"
+                           placeholder="{{'views.register.email.message' | translate}}"
+                           ng-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label>{{"views.login.password" | translate}}</label>
+                    <input type="password"
+                           ng-model="password"
+                           class="form-control"
+                           placeholder="{{'views.login.password' | translate}}"
+                           ng-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label>{{"views.register.confirm.password" | translate}}</label>
+                    <input type="password"
+                           ng-model="confirmPassword"
+                           class="form-control"
+                           placeholder="{{'views.register.confirm.password.message' | translate}}"
+                           ng-required="true">
+                </div>
+
+            </fieldset>
+            <hr>
+
+            <button id="submitBtn" class="btn btn-primary btn-block">
+                {{"views.register.signup" | translate}}
+            </button>
+            <br>
+
+            <div class="pull-left">
+                <span>{{"views.register.login.text" | translate}} </span>
+                <a class="btn-link" href="#/login">{{"views.register.login.subtext" | translate}}</a>
+            </div>
+
+            <div ui-content-for="navbarAction">
+                <a class='btn' linked='submitBtn'>{{"views.register.signup" | translate}}</a>
+            </div>
+        </form>
+    </div>
+</div>

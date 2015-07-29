@@ -11,8 +11,6 @@ angular.module('SGTravelBuddy.auth', [])
                 "password": user.password
             };
             $http.post('/oauth2/token', authData).success(function (res) {
-                var accessToken = res.access_token;
-                var refreshToken = res.refresh_token;
                 var userProfileReq = {
                     method: 'GET',
                     url: '/api/users',
@@ -28,8 +26,18 @@ angular.module('SGTravelBuddy.auth', [])
         };
 
         this.register = function (user, success, error) {
-            $http.post('/api/users', user).success(function (user) {
-                success(user);
+            var authData = {
+                "grant_type": "password",
+                "client_id": "sg-travel-buddy-v1",
+                "client_secret": "welcome1",
+                "username": user.username,
+                "password": user.password
+            };
+            $http.post('/api/users', user).success(function (profile) {
+                $http.post('/oauth2/token', authData).success(function (res) {
+                    profile.oauth = res;
+                    success(profile);
+                }).error(error);
             }).error(error);
         };
 

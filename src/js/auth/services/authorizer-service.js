@@ -5,7 +5,7 @@ angular.module('SGTravelBuddy.auth')
 
         var accessLevels = authConfig.accessLevels
             , userRoles = authConfig.userRoles
-            , currentUser = /*$cookieStore.get('user') ||*/ {username: '', role: userRoles.public};
+            , currentUser = /*$cookieStore.get('user') ||*/ {name: 'Guest', username: '', role: userRoles.public};
 
         /*$cookieStore.remove('user');*/
 
@@ -30,11 +30,8 @@ angular.module('SGTravelBuddy.auth')
                 return user.role.title === userRoles.user.title || user.role.title === userRoles.admin.title;
             },
             register: function (user, success, error) {
-                Authenticator.register(user, function (res) {
-                    user = {
-                        username: res.username,
-                        role: userRoles[res.role]
-                    };
+                Authenticator.register(user, function (user) {
+                    user.role = userRoles[user.role];
                     changeUser(user);
                     success();
                 }, error);

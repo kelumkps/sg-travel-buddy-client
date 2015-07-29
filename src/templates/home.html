@@ -1,5 +1,5 @@
 <div class="scrollable">
-    <div class="scrollable-content">
+    <div class="scrollable-content section">
         <div class="list-group text-center">
             <div class="list-group-item list-group-item-home">
                 <h1>{{"views.app.title" | translate}}
@@ -55,7 +55,7 @@
 
             <div ng-if="!isLoggedIn" class="list-group-item list-group-item-home">
                 <div>
-                    <i class="fa fa-users feature-icon text-primary"></i>
+                    <a href="#/register"><i class="fa fa-users feature-icon text-primary"></i></a>
                 </div>
                 <div>
                     <h3 class="home-heading">{{"views.home.register.text" | translate}}</h3>
