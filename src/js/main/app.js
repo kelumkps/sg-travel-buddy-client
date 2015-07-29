@@ -4,7 +4,8 @@ var app = angular.module('SGTravelBuddy', [
     'ngRoute',
     'mobile-angular-ui',
     'SGTravelBuddy.translator',
-    'SGTravelBuddy.auth'
+    'SGTravelBuddy.auth',
+    'SGTravelBuddy.travel'
 ]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
@@ -15,7 +16,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
         {
             templateUrl: 'home.html',
             controller: 'MainCtrl',
-            access: access.guest
+            access: access.public
         });
     $routeProvider.when('/login',
         {
@@ -35,11 +36,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
             controller: 'RegisterCtrl',
             access: access.public
         });
-    $routeProvider.when('/private',
+    $routeProvider.when('/search-bus',
         {
-            templateUrl: 'private.html',
-            controller: 'MainController',
-            access: access.user
+            templateUrl: 'bus-services.html',
+            controller: 'BusCtrl',
+            access: access.public
         });
     $routeProvider.when('/404',
         {
