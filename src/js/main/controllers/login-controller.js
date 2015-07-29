@@ -7,7 +7,7 @@ angular.module('SGTravelBuddy')
         $scope.rememberMe = false;
         $scope.login = function () {
             Authorizer.login({
-                    email: $scope.email,
+                    username: $scope.email,
                     password: $scope.password,
                     rememberme: $scope.rememberMe
                 },

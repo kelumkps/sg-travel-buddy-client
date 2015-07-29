@@ -40,11 +40,8 @@ angular.module('SGTravelBuddy.auth')
                 }, error);
             },
             login: function (user, success, error) {
-                Authenticator.login(user, function (res) {
-                    user = {
-                        username: res.username,
-                        role: userRoles[res.role]
-                    };
+                Authenticator.login(user, function (user) {
+                    user.role = userRoles[user.role];
                     changeUser(user);
                     success();
                 }, error);

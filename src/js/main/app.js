@@ -64,9 +64,22 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
         }
     });
 
+    $httpProvider.interceptors.push(function ($injector) {
+        return {
+            request: function ($config) {
+                var Authorizer = $injector.get("Authorizer");
+                $config.headers = $config.headers || {};
+                if (Authorizer.isLoggedIn()) {
+                    $config.headers.Authorization = 'Bearer ' + Authorizer.user.oauth.access_token;
+                }
+                return $config;
+            }
+        };
+    });
+
 }]);
 
-app.run(['$rootScope', '$location', 'Authorizer', function ($rootScope, $location, Authorizer) {
+app.run(['$rootScope', '$location', '$injector', 'Authorizer', function ($rootScope, $location, $injector, Authorizer) {
 
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         if (next && next.$$route.originalPath === ""
