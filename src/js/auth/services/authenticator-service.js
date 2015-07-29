@@ -41,7 +41,7 @@ angular.module('SGTravelBuddy.auth', [])
             }).error(error);
         };
 
-        this.logout = function (success, error) {
-            $http.post('/logout').success(success).error(error);
+        this.logout = function (success, refresh_token) {
+            $http.get('/oauth2/revoke', {params: {token: refresh_token}}).success(success).error(success);
         };
     }]);

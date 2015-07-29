@@ -46,7 +46,7 @@
 
             <div ng-if="isLoggedIn" class="list-group-item list-group-item-home">
                 <div>
-                    <i class="fa fa-sign-out feature-icon  text-primary"></i>
+                    <a ng-click="logout()"><i class="fa fa-sign-out feature-icon  text-primary"></i></a>
                 </div>
                 <div>
                     <h3 class="home-heading">{{"views.home.sign.out" | translate}}</h3>

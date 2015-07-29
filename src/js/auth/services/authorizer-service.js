@@ -43,14 +43,16 @@ angular.module('SGTravelBuddy.auth')
                     success();
                 }, error);
             },
-            logout: function (success, error) {
+            logout: function (success) {
                 Authenticator.logout(function () {
                     changeUser({
+                        name: 'Guest',
                         username: '',
-                        role: userRoles.public
+                        role: userRoles.public,
+                        oauth: {}
                     });
                     success();
-                }, error);
+                }, currentUser.oauth.refresh_token);
             },
             accessLevels: accessLevels,
             userRoles: userRoles,
