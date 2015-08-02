@@ -47,5 +47,7 @@
   "views.bus.services.search.show": "Show",
   "views.bus.services.search.hide": "Hide",
   "views.bus.services.search.bar": "Search Bar",
+  "views.bus.route.one": "Route 1",
+  "views.bus.route.two": "Route 2",
   "views.404.error.message": "Oops! 404 Ain't nothing here"
 }

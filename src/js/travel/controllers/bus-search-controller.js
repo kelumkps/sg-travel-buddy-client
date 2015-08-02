@@ -13,7 +13,7 @@ angular.module('SGTravelBuddy.travel', [])
             var arrayLength = $scope.busServices.length;
             var start = $scope.index;
             if (start < arrayLength) {
-                var end = (start + 5) > arrayLength ? arrayLength : (start + 5);
+                var end = (start + 50) > arrayLength ? arrayLength : (start + 50);
                 $scope.scrollItems.push.apply($scope.scrollItems, $scope.busServices.slice(start, end));
                 $scope.index = end;
             }
@@ -26,7 +26,7 @@ angular.module('SGTravelBuddy.travel', [])
                 $scope.busServices = sortedArray;
                 $scope.bottomReached();
             }
-        }, function (res) {
+        }, function (err) {
             $scope.scrollItems = [];
             $scope.messages.error = $translate.instant('views.app.error.service.unavailable');
         });
