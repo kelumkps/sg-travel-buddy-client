@@ -38,6 +38,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     $routeProvider.when('/search-bus',
         {
             templateUrl: 'bus-services.html',
+            controller: 'BusSearchCtrl',
+            access: access.public
+        });
+    $routeProvider.when('/bus-service/:busId',
+        {
+            templateUrl: 'bus.html',
             controller: 'BusCtrl',
             access: access.public
         });
