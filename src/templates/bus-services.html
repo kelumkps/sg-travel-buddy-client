@@ -16,9 +16,10 @@
             ng-model="searchText"/>
 
     <div class="scrollable-content section" ui-scroll-bottom='bottomReached()'>
+        <div ng-include="'alerts.html'"></div>
         <div class="list-group">
-            <a ng-repeat="item in scrollItems" href="#" class="list-group-item">
-                <strong>{{ item }}</strong> <i class="fa fa-chevron-right pull-right"></i>
+            <a ng-repeat="bus in scrollItems" href="#" class="list-group-item">
+                <strong>{{ bus._id }}</strong> <i class="fa fa-chevron-right pull-right"></i>
             </a>
         </div>
     </div>

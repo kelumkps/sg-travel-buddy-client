@@ -5,6 +5,7 @@
   "views.app.info.prefix": "Note!",
   "views.app.warning.prefix": "Warning!",
   "views.app.error.prefix": "Oh no!",
+  "views.app.error.service.unavailable": "Service is currently unavailable. Please try again later.",
   "views.index.menu": "Menu",
   "views.index.chat": "Chat",
   "views.index.docs": "Docs",
