@@ -10,15 +10,19 @@
                 <a ui-set="{'activeTab': 2}">{{"views.bus.route.two" | translate}}</a>
             </li>
         </ul>
-        <h4 class="page-header"><strong>{{ busNumber }}</strong> : {{busName}}</h4>
+        <h4 class="page-header"><strong>{{ busNumber }}</strong> : {{busName}}
+        <a ng-show="selectedBusStops.length > 0" ng-click="startNotifier()" 
+            ng-disabled="disableNotifyButton" class="btn btn-xs btn-primary pull-right">{{"views.bus.notifyme.button" | translate}}</a>
+        </h4>
+        
+        <div ng-include="'alerts.html'"></div>
     </div>
 
-    <div class="scrollable-content section">
-        <div ng-include="'alerts.html'"></div>
+    <div class="scrollable-content section">       
         <div ng-show="showTabs" class='section'>
             <div ui-if="activeTab == 1">
                 <div class="list-group">
-                    <div ng-repeat="stop in routeOneStops" ng-click="notifyStop(stop)"
+                    <div ng-repeat="stop in routeOneStops" ng-click="changeSelectedBusStops(stop)"
                          class="cursor-hand list-group-item">
                         <strong>{{ stop.number }}</strong> - {{stop.name}}
                         <a ng-show="stop.notify" class="pull-right"><i class="fa fa-bell-o pull-right"></i></a>
@@ -28,7 +32,7 @@
 
             <div ui-if="activeTab == 2">
                 <div class="list-group">
-                    <div ng-repeat="stop in routeTwoStops" ng-click="notifyStop(stop)"
+                    <div ng-repeat="stop in routeTwoStops" ng-click="changeSelectedBusStops(stop)"
                          class="cursor-hand list-group-item">
                         <strong>{{ stop.number }}</strong> - {{stop.name}}
                         <a ng-show="stop.notify" class="pull-right"><i class="fa fa-bell-o pull-right"></i></a>

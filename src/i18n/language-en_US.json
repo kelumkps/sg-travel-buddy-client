@@ -50,5 +50,6 @@
   "views.bus.route.one": "Route 1",
   "views.bus.route.two": "Route 2",
   "views.bus.multiple.stops.warning": "Please login to select more that one bus stop",
+  "views.bus.notifyme.button": "Notify Me",
   "views.404.error.message": "Oops! 404 Ain't nothing here"
 }
