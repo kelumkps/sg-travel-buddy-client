@@ -40,7 +40,7 @@ angular.module('SGTravelBuddy.travel')
 	        			}
 	        			updateRouteData(routeId, routeData, error);
 	  				});
-				}, 9000);
+				}, 5000, 1400);
     		}
     	};
 
