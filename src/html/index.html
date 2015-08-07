@@ -20,6 +20,9 @@
      ui-track-as-search-param='true'
      class="sidebar sidebar-left"></div>
 
+<!-- Modals -->
+<div ui-content-for="modals" ng-include="'modal.html'"></div>
+
 <div class="app"
      ui-swipe-right="Ui.turnOn('uiSidebarLeft')"
      ui-swipe-left="Ui.turnOff('uiSidebarLeft')">

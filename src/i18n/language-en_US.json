@@ -53,5 +53,7 @@
   "views.bus.notifyme.button": "Notify Me",
   "views.bus.near.notification.multiple": "Following bus stops are close to your current location",
   "views.bus.near.notification.single": "Following bus stop is close to your current location",
+  "views.modal.header": "Attention",
+  "views.modal.button.okay": "Okay",
   "views.404.error.message": "Oops! 404 Ain't nothing here"
 }

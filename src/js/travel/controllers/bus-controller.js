@@ -53,12 +53,9 @@ angular.module('SGTravelBuddy.travel')
                 if ($scope.selectedBusStops.length > 0) {
                     $scope.disableNotifyButton = true;
                     NotifierHttpService.createNotifier(function (route) {
-                        console.log('created route response', route);
                         NotifierHttpService.startNotifier(route._id, function (err) {
-                            console.log('notifire start error', err);
                         });
                     }, function (err) {
-                        console.log('notifire create error', err);
                         $scope.messages.error = $translate.instant('views.app.error.service.unavailable');
                         $scope.disableNotifyButton = false;
                     });
@@ -67,7 +64,6 @@ angular.module('SGTravelBuddy.travel')
 
             $scope.$on('notifier:nearBusStops', function (event, args) {
                 var nearBusStops = args.nearStops;
-                var notifyMessageString = "";
                 nearBusStops.forEach(function (nearStop) {
                     var storedStop = $scope.busStopsToBeNotified[nearStop._id];
                     storedStop['notify'] = false;
@@ -75,15 +71,7 @@ angular.module('SGTravelBuddy.travel')
                     if (index > -1) {
                         $scope.selectedBusStops.splice(index, 1);
                     }
-                    notifyMessageString = notifyMessageString + ' [' + nearStop._id + ' - ' + nearStop.name + ']';
                 });
-
-                //todo remove below
-                if (nearBusStops.length > 1) {
-                    $scope.messages.info = $translate.instant('views.bus.near.notification.multiple') + notifyMessageString;
-                } else if (nearBusStops.length == 1) {
-                    $scope.messages.info = $translate.instant('views.bus.near.notification.single') + notifyMessageString;
-                }
             });
 
             $scope.$on('notifier:stopNotifier', function (event) {
