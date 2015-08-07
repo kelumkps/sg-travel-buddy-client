@@ -11,14 +11,15 @@
             </li>
         </ul>
         <h4 class="page-header"><strong>{{ busNumber }}</strong> : {{busName}}
-        <a ng-show="selectedBusStops.length > 0" ng-click="startNotifier()" 
-            ng-disabled="disableNotifyButton" class="btn btn-xs btn-primary pull-right">{{"views.bus.notifyme.button" | translate}}</a>
+            <a ng-show="selectedBusStops.length > 0" ng-click="startNotifier()"
+               ng-disabled="disableNotifyButton" class="btn btn-xs btn-primary pull-right">
+                {{"views.bus.notifyme.button" | translate}}</a>
         </h4>
-        
+
         <div ng-include="'alerts.html'"></div>
     </div>
 
-    <div class="scrollable-content section">       
+    <div class="scrollable-content section">
         <div ng-show="showTabs" class='section'>
             <div ui-if="activeTab == 1">
                 <div class="list-group">

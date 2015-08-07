@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SGTravelBuddy.travel')
-    .controller('BusCtrl', ['$rootScope','$scope', '$translate', '$routeParams', 'BusService', 'Authorizer', 'NotifierHttpService',
+    .controller('BusCtrl', ['$rootScope', '$scope', '$translate', '$routeParams', 'BusService', 'Authorizer', 'NotifierHttpService',
         function ($rootScope, $scope, $translate, $routeParams, BusService, Authorizer, NotifierHttpService) {
             $scope.messages = {};
             $scope.showTabs = false;
@@ -44,7 +44,7 @@ angular.module('SGTravelBuddy.travel')
                 stop['notify'] = showIcon;
 
                 NotifierHttpService.updateSelectedBusStops($scope.selectedBusStops);
-                $rootScope.$broadcast('notifier:selectedBusStops', { selectedStops: $scope.selectedBusStops });
+                $rootScope.$broadcast('notifier:selectedBusStops', {selectedStops: $scope.selectedBusStops});
             };
 
             $scope.disableNotifyButton = false;
@@ -52,12 +52,12 @@ angular.module('SGTravelBuddy.travel')
             $scope.startNotifier = function () {
                 if ($scope.selectedBusStops.length > 0) {
                     $scope.disableNotifyButton = true;
-                    NotifierHttpService.createNotifier(function(route) {
-                        console.log('created route response', route);                        
-                        NotifierHttpService.startNotifier(route._id, function(err) {
-                            console.log('notifire start error', err);                           
+                    NotifierHttpService.createNotifier(function (route) {
+                        console.log('created route response', route);
+                        NotifierHttpService.startNotifier(route._id, function (err) {
+                            console.log('notifire start error', err);
                         });
-                    }, function(err) {
+                    }, function (err) {
                         console.log('notifire create error', err);
                         $scope.messages.error = $translate.instant('views.app.error.service.unavailable');
                         $scope.disableNotifyButton = false;
@@ -65,7 +65,7 @@ angular.module('SGTravelBuddy.travel')
                 }
             };
 
-            $scope.$on('notifier:busStops', function(event, args) {
+            $scope.$on('notifier:busStops', function (event, args) {
                 console.log('inside bus controller on notifier:busStops');
                 var nearBusStops = args.nearStops;
                 nearBusStops.forEach(function (nearStop) {
@@ -80,16 +80,16 @@ angular.module('SGTravelBuddy.travel')
 
 
                 //todo remove below
-                if(nearBusStops.length > 1) {
+                if (nearBusStops.length > 1) {
                     $scope.messages.info = "Following bus stops are colse to your current location \n" + JSON.stringify(nearBusStops);
                 } else {
                     $scope.messages.info = "Following bus stop is colse to your current location \n" + nearBusStops;
                 }
 
-                
+
             });
 
-            $scope.$on('notifier:stopNotifier', function(event) {
+            $scope.$on('notifier:stopNotifier', function (event) {
                 $scope.disableNotifyButton = false;
             });
         }]);

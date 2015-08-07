@@ -1,8 +1,8 @@
 angular.module('SGTravelBuddy.websocket', [
-  'btford.socket-io'
+    'btford.socket-io'
 ]).
-factory('socket', function (socketFactory) {
-  return socketFactory({
-    ioSocket: io.connect()
-  });
-})
+    factory('socket', function (socketFactory) {
+        return socketFactory({
+            ioSocket: io.connect()
+        });
+    });
