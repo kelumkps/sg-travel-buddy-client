@@ -48,6 +48,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
             access: access.public,
             reloadOnSearch: false
         });
+    $routeProvider.when('/search-stops',
+        {
+            templateUrl: 'stop-search.html',
+            controller: 'StopSearchCtrl',
+            access: access.public,
+            reloadOnSearch: false
+        });
     $routeProvider.when('/bus-service/:busId',
         {
             templateUrl: 'bus.html',

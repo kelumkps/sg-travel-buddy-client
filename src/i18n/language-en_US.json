@@ -14,6 +14,7 @@
   "views.home.welcome.message": "Welcome to",
   "views.sidebar.menu.home": "Home",
   "views.sidebar.menu.bus": "Bus Services",
+  "views.sidebar.menu.stop": "Bus Stops",
   "views.login.login": "Sign In",
   "views.login.email": "Email",
   "views.login.password": "Password",
@@ -55,5 +56,6 @@
   "views.bus.near.notification.single": "Following bus stop is close to your current location",
   "views.modal.header": "Attention",
   "views.modal.button.okay": "Okay",
+  "views.search.stop.placeholder.text": "Bus stop number or stop name",
   "views.404.error.message": "Oops! 404 Ain't nothing here"
 }

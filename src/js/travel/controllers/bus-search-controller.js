@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SGTravelBuddy.travel', [])
+angular.module('SGTravelBuddy.travel', ['ui.bootstrap'])
     .controller('BusSearchCtrl', ['$scope', '$filter', '$translate', 'BusService', function ($scope, $filter, $translate, BusService) {
         $scope.query = "";
         $scope.messages = {};

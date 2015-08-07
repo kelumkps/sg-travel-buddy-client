@@ -1,0 +1,18 @@
+<div class="scrollable" ui-state="searchBar" ui-default='1'>
+
+    <input type="text"
+           class="form-control scrollable-header"
+           placeholder="{{'views.search.stop.placeholder.text' | translate}}"
+           ng-model="selected"
+           typeahead="stop as stop.displayName for stop in searchBusStops($viewValue)"/>
+
+    <div class="scrollable-content section">
+        <div ng-include="'alerts.html'"></div>
+        <div class="list-group">
+            <a ng-repeat="bus in scrollItems" href="#/bus-service/{{bus._id}}" class="list-group-item">
+                <strong>{{ bus._id }}</strong> <i class="fa fa-chevron-right pull-right"></i>
+            </a>
+        </div>
+    </div>
+
+</div>

@@ -8,5 +8,14 @@ angular.module('SGTravelBuddy.travel')
 
         this.getBusServiceById = function (id, success, error) {
             $http.get('/api/buses/' + id, {cache: true}).success(success).error(error);
-        }
+        };
+
+        this.searchBusStops = function (searchKey, success, error) {
+            return $http.get('/api/stops', {
+                params: {
+                    q: searchKey,
+                    fields: '_id,name'
+                }
+            }).then(success, error);
+        };
     }]);
