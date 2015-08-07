@@ -6,8 +6,8 @@ var app = angular.module('SGTravelBuddy', [
     'SGTravelBuddy.translator',
     'SGTravelBuddy.auth',
     'SGTravelBuddy.travel',
-    'SGTravelBuddy.geolocation',
-    'SGTravelBuddy.websocket'
+    'SGTravelBuddy.geoLocation',
+    'SGTravelBuddy.webSocket'
 ]);
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {

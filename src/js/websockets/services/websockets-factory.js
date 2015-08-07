@@ -1,4 +1,4 @@
-angular.module('SGTravelBuddy.websocket', [
+angular.module('SGTravelBuddy.webSocket', [
     'btford.socket-io'
 ]).
     factory('socket', function (socketFactory) {

@@ -3,9 +3,11 @@
 angular.module('SGTravelBuddy.travel')
     .service('NotifierHttpService', ['$rootScope', '$http', '$interval', 'getCurrentPosition', 'Authorizer',
         function ($rootScope, $http, $interval, getCurrentPosition, Authorizer) {
-            var selectedBusStops = [];
-            var hasUpdates = false;
-            var interval;
+            var selectedBusStops = [],
+                hasUpdates = false,
+                prevLat = 0,
+                prevLng = 0,
+                interval;
 
             this.createNotifier = function (success, error) {
                 if (selectedBusStops.length > 0) {
@@ -27,18 +29,21 @@ angular.module('SGTravelBuddy.travel')
                 if (selectedBusStops.length > 0) {
                     interval = $interval(function () {
                         getCurrentPosition(function (position) {
-                            console.log('geo position>>>>>>', position);
                             var lat = position.coords.latitude;
                             var lng = position.coords.longitude;
-                            var coordinates = [lng, lat];
-                            var routeData = {
-                                coordinates: coordinates
-                            };
-                            if (hasUpdates) {
-                                routeData['busStops'] = selectedBusStops;
-                                hasUpdates = false;
+                            if (lat != prevLat || lng != prevLng) {
+                                prevLat = lat;
+                                prevLng = lng;
+                                var coordinates = [lng, lat];
+                                var routeData = {
+                                    coordinates: coordinates
+                                };
+                                if (hasUpdates) {
+                                    routeData['busStops'] = selectedBusStops;
+                                    hasUpdates = false;
+                                }
+                                updateRouteData(routeId, routeData, error);
                             }
-                            updateRouteData(routeId, routeData, error);
                         });
                     }, 5000, 1400);
                 }
@@ -46,6 +51,8 @@ angular.module('SGTravelBuddy.travel')
 
             this.stopNotifier = function () {
                 if (interval) {
+                    prevLat = 0;
+                    prevLng = 0;
                     $interval.cancel(interval);
                     $rootScope.$broadcast('notifier:stopNotifier');
                 }
@@ -63,7 +70,6 @@ angular.module('SGTravelBuddy.travel')
 
             function updateRouteData(routeId, routeData, error) {
                 $http.put('/api/routes/' + routeId, routeData).success(function (nearBusStops) {
-                    console.log('updated route nearBusStops >>>', nearBusStops);
                     var matchedNearBusStops = [];
                     var isArray = angular.isArray(nearBusStops);
                     selectedBusStops.forEach(function (stop) {
@@ -76,7 +82,6 @@ angular.module('SGTravelBuddy.travel')
                         }
                     });
 
-                    console.log('matches>>>>>>>>>>>>>', matchedNearBusStops);
                     if (matchedNearBusStops.length > 0) {
                         $rootScope.$broadcast('notifier:busStops', {nearStops: matchedNearBusStops});
                     }
