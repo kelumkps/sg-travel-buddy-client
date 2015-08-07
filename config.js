@@ -29,6 +29,7 @@ module.exports = function (config) {
     config.vendor.js.push('./bower_components/angular-translate/angular-translate.js');
     config.vendor.js.push('./bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js');
     config.vendor.js.push('./bower_components/angular-translate-handler-log/angular-translate-handler-log.js');
+    config.vendor.js.push('./bower_components/angular-cookies/angular-cookies.js');
     config.vendor.js.push('./bower_components/socket.io-client/socket.io.js');
     config.vendor.js.push('./bower_components/angular-socket-io/socket.js');
     // config.vendor.js.push('.bower_components/lib/dist/lib.js');

@@ -9,7 +9,7 @@ angular.module('SGTravelBuddy')
             Authorizer.login({
                     username: $scope.email,
                     password: $scope.password,
-                    rememberme: $scope.rememberMe
+                    rememberMe: $scope.rememberMe
                 },
                 function () {
                     $location.path('/');

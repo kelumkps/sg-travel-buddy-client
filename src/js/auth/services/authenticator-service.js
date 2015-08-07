@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SGTravelBuddy.auth', [])
+angular.module('SGTravelBuddy.auth', ['ngCookies'])
     .service('Authenticator', ['$http', function ($http) {
         this.login = function (user, success, error) {
             var authData = {
@@ -20,6 +20,7 @@ angular.module('SGTravelBuddy.auth', [])
                 };
                 $http(userProfileReq).success(function (profile) {
                     profile.oauth = res;
+                    profile.rememberMe = user.rememberMe;
                     success(profile);
                 }).error(error);
             }).error(error);
