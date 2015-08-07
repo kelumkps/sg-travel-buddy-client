@@ -12,7 +12,6 @@ angular.module('SGTravelBuddy.travel')
             this.createNotifier = function (success, error) {
                 if (selectedBusStops.length > 0) {
                     getCurrentPosition(function (position) {
-                        console.log(position);
                         var lat = position.coords.latitude;
                         var lng = position.coords.longitude;
                         var coordinates = [lng, lat];
@@ -75,15 +74,21 @@ angular.module('SGTravelBuddy.travel')
                     selectedBusStops.forEach(function (stop) {
                         if (isArray) {
                             nearBusStops.forEach(function (nearStop) {
-                                if (nearStop._id === stop) matchedNearBusStops.push(stop);
+                                if (nearStop._id === stop) matchedNearBusStops.push({
+                                    _id: stop,
+                                    name: nearStop.name
+                                });
                             });
                         } else if (nearBusStops._id === stop) {
-                            matchedNearBusStops.push(stop);
+                            matchedNearBusStops.push({
+                                _id: stop,
+                                name: nearStop.name
+                            });
                         }
                     });
 
                     if (matchedNearBusStops.length > 0) {
-                        $rootScope.$broadcast('notifier:busStops', {nearStops: matchedNearBusStops});
+                        $rootScope.$broadcast('notifier:nearBusStops', {nearStops: matchedNearBusStops});
                     }
                 }).error(error);
             };

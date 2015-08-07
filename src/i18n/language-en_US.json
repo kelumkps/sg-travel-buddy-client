@@ -51,5 +51,7 @@
   "views.bus.route.two": "Route 2",
   "views.bus.multiple.stops.warning": "Please login to select more that one bus stop",
   "views.bus.notifyme.button": "Notify Me",
+  "views.bus.near.notification.multiple": "Following bus stops are close to your current location",
+  "views.bus.near.notification.single": "Following bus stop is close to your current location",
   "views.404.error.message": "Oops! 404 Ain't nothing here"
 }

@@ -65,28 +65,25 @@ angular.module('SGTravelBuddy.travel')
                 }
             };
 
-            $scope.$on('notifier:busStops', function (event, args) {
-                console.log('inside bus controller on notifier:busStops');
+            $scope.$on('notifier:nearBusStops', function (event, args) {
                 var nearBusStops = args.nearStops;
+                var notifyMessageString = "";
                 nearBusStops.forEach(function (nearStop) {
-                    var storedStop = $scope.busStopsToBeNotified[nearStop];
+                    var storedStop = $scope.busStopsToBeNotified[nearStop._id];
                     storedStop['notify'] = false;
-                    var index = $scope.selectedBusStops.indexOf(nearStop);
+                    var index = $scope.selectedBusStops.indexOf(nearStop._id);
                     if (index > -1) {
                         $scope.selectedBusStops.splice(index, 1);
-                        console.log('splice from selectedBusStops');
                     }
+                    notifyMessageString = notifyMessageString + ' [' + nearStop._id + ' - ' + nearStop.name + ']';
                 });
-
 
                 //todo remove below
                 if (nearBusStops.length > 1) {
-                    $scope.messages.info = "Following bus stops are colse to your current location \n" + JSON.stringify(nearBusStops);
-                } else {
-                    $scope.messages.info = "Following bus stop is colse to your current location \n" + nearBusStops;
+                    $scope.messages.info = $translate.instant('views.bus.near.notification.multiple') + notifyMessageString;
+                } else if (nearBusStops.length == 1) {
+                    $scope.messages.info = $translate.instant('views.bus.near.notification.single') + notifyMessageString;
                 }
-
-
             });
 
             $scope.$on('notifier:stopNotifier', function (event) {
