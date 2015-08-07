@@ -12,39 +12,38 @@ angular.module('SGTravelBuddy')
                 });
             };
 
-            $scope.notificationMessage = {};
             $scope.busStopsToBeNotified = [];
             $scope.$on('notifier:selectedBusStops', function (event, args) {
                 angular.copy(args.selectedStops, $scope.busStopsToBeNotified);
             });
-            $scope.notifyMessageString = "";
+
+            $scope.notifyStops = [];
             $scope.$on('notifier:nearBusStops', function (event, args) {
                 var nearBusStops = args.nearStops;
                 nearBusStops.forEach(function (nearStop) {
                     var index = $scope.busStopsToBeNotified.indexOf(nearStop._id);
                     if (index > -1) {
-                        $scope.notifyMessageString = $scope.notifyMessageString + ' [' + nearStop._id + ' - ' + nearStop.name + ']';
                         $scope.busStopsToBeNotified.splice(index, 1);
+                        $scope.notifyStops.push(nearStop);
                     }
                 });
-                if (nearBusStops.length > 1) {
-                    $scope.notificationMessage = $translate.instant('views.bus.near.notification.multiple') + $scope.notifyMessageString;
+                if ($scope.notifyStops.length > 1) {
+                    $scope.notificationMessage = $translate.instant('views.bus.near.notification.multiple');
                 } else if (nearBusStops.length == 1) {
-                    $scope.notificationMessage = $translate.instant('views.bus.near.notification.single') + $scope.notifyMessageString;
+                    $scope.notificationMessage = $translate.instant('views.bus.near.notification.single');
                 }
-                if ($scope.notifyMessageString != "") {
+                if ($scope.notifyStops.length != 0) {
                     SharedState.turnOn('modal1');
                 } else {
                     SharedState.turnOff('modal1');
-
                 }
                 if ($scope.busStopsToBeNotified.length == 0) {
                     NotifierHttpService.stopNotifier();
                 }
             });
 
-            $scope.closeModal = function() {
-                $scope.notifyMessageString = '';
+            $scope.closeModal = function () {
+                $scope.notifyStops = [];
                 SharedState.turnOff('modal1');
             }
 

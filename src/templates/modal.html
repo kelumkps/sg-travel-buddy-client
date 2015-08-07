@@ -9,9 +9,14 @@
             </div>
             <div class="modal-body">
                 <p>{{notificationMessage}}</p>
+
+                <div ng-repeat="stop in notifyStops">
+                    <strong>{{ stop._id }}</strong> - {{stop.name}}
+                </div>
             </div>
             <div class="modal-footer">
-                <button data-ng-click="closeModal()" class="btn btn-primary">{{"views.modal.button.okay" | translate}}</button>
+                <button data-ng-click="closeModal()" class="btn btn-primary">{{"views.modal.button.okay" | translate}}
+                </button>
             </div>
         </div>
     </div>
