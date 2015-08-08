@@ -57,5 +57,6 @@
   "views.modal.header": "Attention",
   "views.modal.button.okay": "Okay",
   "views.search.stop.placeholder.text": "Bus stop number or stop name",
+  "views.search.stop.selection.clear": "Clear",
   "views.404.error.message": "Oops! 404 Ain't nothing here"
 }
