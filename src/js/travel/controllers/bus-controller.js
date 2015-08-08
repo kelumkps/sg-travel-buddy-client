@@ -62,7 +62,7 @@ angular.module('SGTravelBuddy.travel')
                 }
             };
 
-            $scope.$on('notifier:nearBusStops', function (event, args) {
+            var destroyListener = $scope.$on('notifier:nearBusStops', function (event, args) {
                 var nearBusStops = args.nearStops;
                 nearBusStops.forEach(function (nearStop) {
                     var storedStop = $scope.busStopsToBeNotified[nearStop._id];
@@ -72,6 +72,10 @@ angular.module('SGTravelBuddy.travel')
                         $scope.selectedBusStops.splice(index, 1);
                     }
                 });
+            });
+
+            $scope.$on('$destroy', function() {
+                destroyListener(); // remove listener.
             });
 
             $scope.$on('notifier:stopNotifier', function (event) {

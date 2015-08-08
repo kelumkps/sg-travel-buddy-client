@@ -31,8 +31,8 @@ angular.module('SGTravelBuddy.travel')
                             var lat = position.coords.latitude;
                             var lng = position.coords.longitude;
                             if (lat != prevLat || lng != prevLng) {
-                                prevLat = lat;
-                                prevLng = lng;
+                                /*prevLat = lat;
+                                prevLng = lng;*/
                                 var coordinates = [lng, lat];
                                 var routeData = {
                                     coordinates: coordinates

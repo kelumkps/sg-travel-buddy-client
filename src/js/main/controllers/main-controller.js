@@ -34,8 +34,6 @@ angular.module('SGTravelBuddy')
                 }
                 if ($scope.notifyStops.length != 0) {
                     SharedState.turnOn('modal1');
-                } else {
-                    SharedState.turnOff('modal1');
                 }
                 if ($scope.busStopsToBeNotified.length == 0) {
                     NotifierHttpService.stopNotifier();
