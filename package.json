@@ -9,9 +9,8 @@
     "gulp-connect": "^2.0.5",
     "gulp-cssmin": "^0.1.6",
     "gulp-ignore": "^1.2.0",
-    "gulp-imagemin": "^0.6.2",
     "gulp-jsonminify": "^1.0.0",
-    "gulp-less": "^1.3.2",
+    "gulp-less": "^3.0.3",
     "gulp-mobilizer": "^0.0.2",
     "gulp-ng-annotate": "^0.2.0",
     "gulp-ng-lang2js": "^0.2.0",
@@ -21,7 +20,6 @@
     "gulp-rimraf": "^0.1.0",
     "gulp-sourcemaps": "^1.1.0",
     "gulp-uglify": "^0.3.1",
-    "imagemin-pngcrush": "^0.1.0",
     "run-sequence": "^0.3.6",
     "streamqueue": "^0.1.1",
     "weinre": "^2.0.0-pre-I0Z7U9OV"

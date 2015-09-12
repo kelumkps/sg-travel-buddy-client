@@ -7,14 +7,25 @@
 var config = {
     dest: 'www',
     cordova: true,
-    minify_images: true,
-
+    less: {
+        src: [
+            './src/less/app.less', './src/less/responsive.less'
+        ],
+        paths: [
+            './src/less', './bower_components'
+        ]
+    },
     vendor: {
         js: [
             './bower_components/angular/angular.js',
             './bower_components/angular-route/angular-route.js',
             './bower_components/mobile-angular-ui/dist/js/mobile-angular-ui.js'
         ],
+
+        css: {
+            prepend: [],
+            append: []
+        },
 
         fonts: [
             './bower_components/font-awesome/fonts/fontawesome-webfont.*'
@@ -61,8 +72,6 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     ignore = require('gulp-ignore'),
     rimraf = require('gulp-rimraf'),
-    imagemin = require('gulp-imagemin'),
-    pngcrush = require('imagemin-pngcrush'),
     templateCache = require('gulp-angular-templatecache'),
     mobilizer = require('gulp-mobilizer'),
     ngAnnotate = require('gulp-ng-annotate'),
@@ -132,17 +141,8 @@ gulp.task('livereload', function () {
  =====================================*/
 
 gulp.task('images', function () {
-    var stream = gulp.src('src/images/**/*');
-
-    if (config.minify_images) {
-        stream = stream.pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngcrush()]
-        }));
-    }
-
-    return stream.pipe(gulp.dest(path.join(config.dest, 'images')));
+    return gulp.src('src/images/**/*')
+        .pipe(gulp.dest(path.join(config.dest, 'images')));
 });
 
 
@@ -179,10 +179,11 @@ gulp.task('html', function () {
  ======================================================================*/
 
 gulp.task('less', function () {
-    gulp.src(['./src/less/app.less', './src/less/responsive.less'])
-        .pipe(less({
-            paths: [path.resolve(__dirname, 'src/less'), path.resolve(__dirname, 'bower_components')]
-        }))
+    return gulp.src(config.less.src).pipe(less({
+        paths: config.less.paths.map(function (p) {
+            return path.resolve(__dirname, p);
+        })
+    }))
         .pipe(mobilizer('app.css', {
             'app.css': {
                 hover: 'exclude',
