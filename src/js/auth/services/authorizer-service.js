@@ -56,6 +56,13 @@ angular.module('SGTravelBuddy.auth')
                     success();
                 }, currentUser.oauth.refresh_token);
             },
+            refreshTokens : function (success, error) {
+                Authenticator.refreshTokens(currentUser.oauth.refresh_token, function (res) {
+                    currentUser.oauth = res;
+                    changeUser(currentUser);
+                    success();
+                }, error);
+            },
             accessLevels: accessLevels,
             userRoles: userRoles,
             user: currentUser

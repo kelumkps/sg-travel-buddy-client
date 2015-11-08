@@ -10,7 +10,7 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
                 "username": user.username,
                 "password": user.password
             };
-            $http.post('/oauth2/token', authData).success(function (res) {
+            $http.post('/oauth2/token', authData, {ignoreAuthModule: true}).success(function (res) {
                 var userProfileReq = {
                     method: 'GET',
                     url: '/api/users',
@@ -34,7 +34,7 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
                 "username": user.username,
                 "password": user.password
             };
-            $http.post('/api/users', user).success(function (profile) {
+            $http.post('/api/users', user, {ignoreAuthModule: true}).success(function (profile) {
                 $http.post('/oauth2/token', authData).success(function (res) {
                     profile.oauth = res;
                     success(profile);
@@ -42,7 +42,17 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
             }).error(error);
         };
 
-        this.logout = function (success, refresh_token) {
-            $http.get('/oauth2/revoke', {params: {token: refresh_token}}).success(success).error(success);
+        this.logout = function (success, refreshToken) {
+            $http.get('/oauth2/revoke', {params: {token: refreshToken}, ignoreAuthModule: true}).success(success).error(success);
+        };
+
+        this.refreshTokens = function (refreshToken, success, error) {
+            var authData = {
+                "grant_type": "refresh_token",
+                "client_id": "sg-travel-buddy-v1",
+                "client_secret": "welcome1",
+                "refresh_token": refreshToken
+            };
+            $http.post('/oauth2/token', authData, {ignoreAuthModule: true}).success(success).error(error);
         };
     }]);

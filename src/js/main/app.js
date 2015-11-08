@@ -3,6 +3,7 @@
 var app = angular.module('SGTravelBuddy', [
     'ngRoute',
     'mobile-angular-ui',
+    'http-auth-interceptor',
     'SGTravelBuddy.translator',
     'SGTravelBuddy.auth',
     'SGTravelBuddy.travel',
@@ -72,20 +73,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
     //$locationProvider.html5Mode(true); // todo enable this
 
-    $httpProvider.interceptors.push(function ($q, $location) {
-        return {
-            'responseError': function (response) {
-                if (response.status === 401 || response.status === 403) {
-                    $location.path('/login');
-                    return $q.reject(response);
-                }
-                else {
-                    return $q.reject(response);
-                }
-            }
-        }
-    });
-
     $httpProvider.interceptors.push(function ($injector) {
         return {
             request: function ($config) {
@@ -101,7 +88,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
 }]);
 
-app.run(['$rootScope', '$location', '$injector', 'Authorizer', function ($rootScope, $location, $injector, Authorizer) {
+app.run(['$rootScope', '$location', 'Authorizer', 'authService', function ($rootScope, $location, Authorizer, authService) {
 
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         if (next && next.$$route.originalPath === ""
@@ -111,6 +98,20 @@ app.run(['$rootScope', '$location', '$injector', 'Authorizer', function ($rootSc
             if (Authorizer.isLoggedIn()) $location.path('/');
             else $location.path('/login');
         }
+    });
+
+    $rootScope.$on('event:auth-loginRequired', function () {
+        Authorizer.refreshTokens(function () {
+            authService.loginConfirmed();
+        }, function () {
+            $location.path('/login');
+        });
+    });
+
+    $rootScope.$on('event:auth-forbidden', function () {
+        Authorizer.logout(function () {
+            $location.path('/login');
+        });
     });
 
 }]);

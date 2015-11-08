@@ -33,6 +33,7 @@ module.exports = function (config) {
     config.vendor.js.push('./bower_components/angular-sanitize/angular-sanitize.js');
     config.vendor.js.push('./bower_components/socket.io-client/socket.io.js');
     config.vendor.js.push('./bower_components/angular-socket-io/socket.js');
+    config.vendor.js.push('./bower_components/angular-http-auth/src/http-auth-interceptor.js');
     // config.vendor.js.push('.bower_components/lib/dist/lib.js');
     // config.vendor.fonts.push('.bower_components/font/dist/*');
 
