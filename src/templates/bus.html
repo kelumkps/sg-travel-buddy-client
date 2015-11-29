@@ -11,7 +11,7 @@
             </li>
         </ul>
         <h4 class="page-header"><strong>{{ busNumber }}</strong> : {{busName}}
-            <a ng-show="selectedBusStops.length > 0" ng-click="startNotifier()"
+            <a ng-show="showNotifyButton()" ng-click="startNotifier()"
                ng-disabled="disableNotifyButton" class="btn btn-xs btn-primary pull-right">
                 {{"views.bus.notifyme.button" | translate}}</a>
         </h4>

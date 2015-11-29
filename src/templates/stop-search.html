@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="btn-group justified nav-tabs scrollable-footer">
-        <a ng-show="selectedBusStops.length > 0" ng-click="startNotifier()"
+        <a ng-show="showNotifyButton()" ng-click="startNotifier()"
            ng-disabled="disableNotifyButton" class="btn btn-sm btn-primary pull-right">
             {{"views.bus.notifyme.button" | translate}}</a>
         <a ng-show="searchedBusStops.length > 0" ng-click="clearSelections()" class="btn btn-sm btn-default">

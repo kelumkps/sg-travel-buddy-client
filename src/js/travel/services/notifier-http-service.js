@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('SGTravelBuddy.travel')
-    .service('NotifierHttpService', ['$rootScope', '$http', '$interval', 'getCurrentPosition', 'Authorizer',
-        function ($rootScope, $http, $interval, getCurrentPosition, Authorizer) {
+    .service('NotifierHttpService', ['$rootScope', '$http', '$interval', 'getCurrentPosition', 'Authorizer', '$translate',
+        function ($rootScope, $http, $interval, getCurrentPosition, Authorizer, $translate) {
             var selectedBusStops = [],
+                busStopsToBeNotified = {},
                 hasUpdates = false,
                 prevLat = 0,
                 prevLng = 0,
@@ -57,14 +58,44 @@ angular.module('SGTravelBuddy.travel')
                 }
             };
 
-            this.updateSelectedBusStops = function (list) {
-                if (list.length > 0) {
-                    selectedBusStops = list;
+            this.getSelectedBusStops = function () {
+                return selectedBusStops;
+            };
+
+            this.getBusStopsToBeNotified = function () {
+                return busStopsToBeNotified;
+            };
+
+            this.changeSelectedBusStops = function ($scope, stop) {
+                var showIcon = true;
+                if (selectedBusStops.length > 0) {
+                    var index = selectedBusStops.indexOf(stop.number);
+                    if (index > -1) {
+                        selectedBusStops.splice(index, 1);
+                        showIcon = false;
+                        var storedStop = busStopsToBeNotified[stop.number];
+                        storedStop['notify'] = showIcon;
+                        busStopsToBeNotified[stop.number] = undefined;
+                    } else if (Authorizer.isLoggedIn()) {
+                        selectedBusStops.push(stop.number);
+                        busStopsToBeNotified[stop.number] = stop;
+                    } else {
+                        $scope.messages.warning = $translate.instant('views.bus.multiple.stops.warning');
+                        showIcon = false;
+                    }
+                } else {
+                    selectedBusStops.push(stop.number);
+                    busStopsToBeNotified[stop.number] = stop;
+                }
+                stop['notify'] = showIcon;
+
+                if (selectedBusStops.length > 0) {
                     hasUpdates = true;
                 } else {
                     hasUpdates = false;
                     this.stopNotifier();
                 }
+                $rootScope.$broadcast('notifier:selectedBusStops', {selectedStops: selectedBusStops});
             };
 
             function updateRouteData(routeId, routeData, error) {
