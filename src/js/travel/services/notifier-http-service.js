@@ -100,7 +100,6 @@ angular.module('SGTravelBuddy.travel')
                     hasUpdates = false;
                     this.stopNotifier();
                 }
-                $rootScope.$broadcast('notifier:selectedBusStops', {selectedStops: selectedBusStops});
             };
 
             function updateRouteData(routeId, routeData, error) {

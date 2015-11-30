@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('SGTravelBuddy.travel')
-    .controller('BusCtrl', ['$rootScope', '$scope', '$translate', '$routeParams', 'BusService', 'Authorizer', 'NotifierHttpService',
-        function ($rootScope, $scope, $translate, $routeParams, BusService, Authorizer, NotifierHttpService) {
+    .controller('BusCtrl', ['$rootScope', '$scope', '$translate', '$routeParams', 'BusService', 'NotifierHttpService',
+        function ($rootScope, $scope, $translate, $routeParams, BusService, NotifierHttpService) {
             $scope.messages = {};
             $scope.showTabs = false;
             $scope.showSecondTab = false;
@@ -47,15 +47,9 @@ angular.module('SGTravelBuddy.travel')
 
             var destroyListener = $scope.$on('notifier:nearBusStops', function (event, args) {
                 var nearBusStops = args.nearStops;
-                var busStopsToBeNotified = NotifierHttpService.getBusStopsToBeNotified();
                 nearBusStops.forEach(function (nearStop) {
-                    var storedStop = busStopsToBeNotified[nearStop._id];
-                    storedStop['notify'] = false;
-                    busStopsToBeNotified[nearStop._id] = undefined;
-                    var index = NotifierHttpService.getSelectedBusStops().indexOf(nearStop._id);
-                    if (index > -1) {
-                        NotifierHttpService.getSelectedBusStops().splice(index, 1);
-                    }
+                    findAndModifyNotificationStatus($scope.routeOneStops, nearStop._id, false);
+                    findAndModifyNotificationStatus($scope.routeTwoStops, nearStop._id, false);
                 });
             });
 
@@ -77,4 +71,15 @@ angular.module('SGTravelBuddy.travel')
                     });
                 }
             };
+
+            function findAndModifyNotificationStatus(busStops, number, status) {
+                if (angular.isArray(busStops)) {
+                    busStops.forEach(function (stop) {
+                        if (stop.number == number) {
+                            stop['notify'] = status;
+                        }
+                    });
+                }
+            };
+
         }]);

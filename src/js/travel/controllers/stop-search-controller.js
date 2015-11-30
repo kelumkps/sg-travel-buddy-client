@@ -1,9 +1,18 @@
 'use strict';
 
 angular.module('SGTravelBuddy.travel')
-    .controller('StopSearchCtrl', ['$rootScope', '$scope', '$translate', 'BusService', 'NotifierHttpService', 'Authorizer',
-        function ($rootScope, $scope, $translate, BusService, NotifierHttpService, Authorizer) {
+    .controller('StopSearchCtrl', ['$rootScope', '$scope', '$translate', 'BusService', 'NotifierHttpService',
+        function ($rootScope, $scope, $translate, BusService, NotifierHttpService) {
             $scope.messages = {};
+            $scope.searchedBusStops = [];
+            var selectedStops = NotifierHttpService.getSelectedBusStops();
+            selectedStops.forEach(function (number) {
+                var stop = NotifierHttpService.getBusStopsToBeNotified()[number];
+                if (angular.isDefined(stop)) {
+                    stop['notify'] = true;
+                    $scope.searchedBusStops.push(stop);
+                }
+            });
 
             $scope.searchBusStops = function (searchKey) {
                 return BusService.searchBusStops(searchKey, function (response) {
@@ -17,18 +26,20 @@ angular.module('SGTravelBuddy.travel')
                 });
             };
 
-            $scope.searchedBusStops = [];
             $scope.onSelect = function ($item) {
+                $item['number'] = $item._id;
                 $scope.searchedBusStops.push($item);
+                if (angular.isDefined(NotifierHttpService.getBusStopsToBeNotified()[$item.number])) {
+                    $item['notify'] = true;
+                }
                 $scope.selected = undefined;
             };
 
             $scope.changeSelectedBusStops = function (stop) {
-                stop['number'] = stop._id;
                 NotifierHttpService.changeSelectedBusStops($scope, stop);
             };
 
-            $scope.disableNotifyButton = false;
+            $scope.disableNotifyButton = NotifierHttpService.isNotifierOn();
 
             $scope.showNotifyButton = function () {
                 return NotifierHttpService.getSelectedBusStops().length > 0;
@@ -46,24 +57,6 @@ angular.module('SGTravelBuddy.travel')
                     });
                 }
             };
-
-            var destroyListener = $scope.$on('notifier:nearBusStops', function (event, args) {
-                var nearBusStops = args.nearStops;
-                var busStopsToBeNotified = NotifierHttpService.getBusStopsToBeNotified();
-                nearBusStops.forEach(function (nearStop) {
-                    var storedStop = busStopsToBeNotified[nearStop._id];
-                    storedStop['notify'] = false;
-                    busStopsToBeNotified[nearStop._id] = undefined;
-                    var index = NotifierHttpService.getSelectedBusStops().indexOf(nearStop._id);
-                    if (index > -1) {
-                        NotifierHttpService.getSelectedBusStops().splice(index, 1);
-                    }
-                });
-            });
-
-            $scope.$on('$destroy', function() {
-                destroyListener(); // remove listener.
-            });
 
             $scope.$on('notifier:stopNotifier', function (event) {
                 $scope.disableNotifyButton = false;

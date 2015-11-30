@@ -14,7 +14,7 @@
         <div class="list-group">
             <div ng-repeat="stop in searchedBusStops" ng-click="changeSelectedBusStops(stop)"
                  class="cursor-hand list-group-item">
-                <strong>{{ stop._id }}</strong> - {{stop.name}}
+                <strong>{{ stop.number }}</strong> - {{stop.name}}
                 <a ng-show="stop.notify" class="pull-right"><i class="fa fa-bell-o pull-right"></i></a>
             </div>
         </div>

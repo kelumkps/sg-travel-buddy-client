@@ -11,19 +11,17 @@ angular.module('SGTravelBuddy')
                     $location.path('/login');
                 });
             };
-
-            $scope.busStopsToBeNotified = [];
-            $scope.$on('notifier:selectedBusStops', function (event, args) {
-                angular.copy(args.selectedStops, $scope.busStopsToBeNotified);
-            });
-
             $scope.notifyStops = [];
             $scope.$on('notifier:nearBusStops', function (event, args) {
                 var nearBusStops = args.nearStops;
+                var busStopsToBeNotified = NotifierHttpService.getBusStopsToBeNotified();
                 nearBusStops.forEach(function (nearStop) {
-                    var index = $scope.busStopsToBeNotified.indexOf(nearStop._id);
+                    var storedStop = busStopsToBeNotified[nearStop._id];
+                    if (angular.isDefined(storedStop)) storedStop['notify'] = false;
+                    busStopsToBeNotified[nearStop._id] = undefined;
+                    var index = NotifierHttpService.getSelectedBusStops().indexOf(nearStop._id);
                     if (index > -1) {
-                        $scope.busStopsToBeNotified.splice(index, 1);
+                        NotifierHttpService.getSelectedBusStops().splice(index, 1);
                         $scope.notifyStops.push(nearStop);
                     }
                 });
@@ -35,7 +33,7 @@ angular.module('SGTravelBuddy')
                 if ($scope.notifyStops.length != 0) {
                     SharedState.turnOn('modal1');
                 }
-                if ($scope.busStopsToBeNotified.length == 0) {
+                if (NotifierHttpService.getSelectedBusStops().length == 0) {
                     NotifierHttpService.stopNotifier();
                 }
             });
