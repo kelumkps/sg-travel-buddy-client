@@ -6,6 +6,7 @@ angular.module('SGTravelBuddy.travel')
             $scope.messages = {};
             $scope.showTabs = false;
             $scope.showSecondTab = false;
+
             BusService.getBusServiceById($routeParams.busId, function (bus) {
                 if (bus) {
                     $scope.showTabs = true;
@@ -14,6 +15,8 @@ angular.module('SGTravelBuddy.travel')
                     $scope.busName = bus.name;
                     $scope.routeOneStops = bus.routeOneStops;
                     $scope.routeTwoStops = bus.routeTwoStops;
+                    setNotificationStatus($scope.routeOneStops);
+                    setNotificationStatus($scope.routeTwoStops);
                 }
             }, function (err) {
                 $scope.messages.error = $translate.instant('views.app.error.service.unavailable');
@@ -23,7 +26,7 @@ angular.module('SGTravelBuddy.travel')
                 NotifierHttpService.changeSelectedBusStops($scope, stop);
             };
 
-            $scope.disableNotifyButton = false;
+            $scope.disableNotifyButton = NotifierHttpService.isNotifierOn();
 
             $scope.showNotifyButton = function () {
                 return NotifierHttpService.getSelectedBusStops().length > 0;
@@ -63,4 +66,15 @@ angular.module('SGTravelBuddy.travel')
             $scope.$on('notifier:stopNotifier', function (event) {
                 $scope.disableNotifyButton = false;
             });
+
+            function setNotificationStatus(busStops) {
+                if (angular.isArray(busStops)) {
+                    var busStopsToBeNotified = NotifierHttpService.getBusStopsToBeNotified();
+                    busStops.forEach(function (stop) {
+                        if (angular.isDefined(busStopsToBeNotified[stop.number])) {
+                            stop['notify'] = true;
+                        }
+                    });
+                }
+            };
         }]);

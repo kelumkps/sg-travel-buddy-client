@@ -55,7 +55,12 @@ angular.module('SGTravelBuddy.travel')
                     prevLng = 0;
                     $interval.cancel(interval);
                     $rootScope.$broadcast('notifier:stopNotifier');
+                    interval = undefined;
                 }
+            };
+
+            this.isNotifierOn = function () {
+                return angular.isDefined(interval);
             };
 
             this.getSelectedBusStops = function () {
