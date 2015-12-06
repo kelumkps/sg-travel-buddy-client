@@ -52,7 +52,7 @@ angular.module('SGTravelBuddy')
                     message = message + stop._id + ' - ' + stop.name + '\n';
                 });
                 navigator.notification.beep(1);
-                navigator.vibrate(3000);
+                navigator.vibrate(1000);
                 navigator.notification.alert(
                     message,
                     alertDismissed,
