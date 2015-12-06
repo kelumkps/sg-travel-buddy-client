@@ -1,10 +1,10 @@
 module.exports = function (config) {
 
     // Output directory
-    config.dest = 'public';
+    config.dest = 'www';
 
     // Inject cordova script into html
-    config.cordova = false;
+    config.cordova = true;
 
     // Images minification
     config.minify_images = true;

@@ -32,6 +32,7 @@ angular.module('SGTravelBuddy')
                 }
                 if ($scope.notifyStops.length != 0) {
                     SharedState.turnOn('modal1');
+                    triggerNotification();
                 }
                 if (NotifierHttpService.getSelectedBusStops().length == 0) {
                     NotifierHttpService.stopNotifier();
@@ -41,6 +42,27 @@ angular.module('SGTravelBuddy')
             $scope.closeModal = function () {
                 $scope.notifyStops = [];
                 SharedState.turnOff('modal1');
-            }
+            };
+
+            function triggerNotification() {
+                var title = $translate.instant('views.modal.header');
+                var buttonName = $translate.instant('views.modal.button.okay');
+                var message = $scope.notificationMessage + '\n';
+                $scope.notifyStops.forEach(function (stop) {
+                    message = message + stop._id + ' - ' + stop.name + '\n';
+                });
+                navigator.notification.beep(1);
+                navigator.vibrate(3000);
+                navigator.notification.alert(
+                    message,
+                    alertDismissed,
+                    title,
+                    buttonName
+                );
+            };
+
+            function alertDismissed() {
+                $scope.notifyStops = [];
+            };
 
         }]);

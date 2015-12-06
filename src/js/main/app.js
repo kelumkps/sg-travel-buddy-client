@@ -4,6 +4,8 @@ var app = angular.module('SGTravelBuddy', [
     'ngRoute',
     'mobile-angular-ui',
     'http-auth-interceptor',
+    'SGTravelBuddy.cordova',
+    'SGTravelBuddy.util',
     'SGTravelBuddy.translator',
     'SGTravelBuddy.auth',
     'SGTravelBuddy.travel',
@@ -88,7 +90,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
 }]);
 
-app.run(['$rootScope', '$location', 'Authorizer', 'authService', function ($rootScope, $location, Authorizer, authService) {
+app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady',
+    function ($rootScope, $location, Authorizer, authService, deviceReady) {
 
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         if (next && next.$$route.originalPath === ""
@@ -112,6 +115,13 @@ app.run(['$rootScope', '$location', 'Authorizer', 'authService', function ($root
         Authorizer.logout(function () {
             $location.path('/login');
         });
+    });
+
+    deviceReady(function () {
+        var deviceInfo = 'cordova :' + device.cordova + ' model: ' + device.model
+            + ' platform: ' + device.platform + ' uuid: ' + device.uuid + ' version: ' + device.version
+            + ' isVirtual: ' + device.isVirtual+ ' serial: ' + device.serial;
+        alert('travel buddy info '+ deviceInfo);
     });
 
 }]);

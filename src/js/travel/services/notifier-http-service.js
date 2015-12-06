@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('SGTravelBuddy.travel')
-    .service('NotifierHttpService', ['$rootScope', '$http', '$interval', 'getCurrentPosition', 'Authorizer', '$translate',
-        function ($rootScope, $http, $interval, getCurrentPosition, Authorizer, $translate) {
+    .service('NotifierHttpService', ['$rootScope', '$http', '$interval', 'getCurrentPosition', 'Authorizer', '$translate', 'RemoteService',
+        function ($rootScope, $http, $interval, getCurrentPosition, Authorizer, $translate, RemoteService) {
             var selectedBusStops = [],
                 busStopsToBeNotified = {},
                 hasUpdates = false,
@@ -20,7 +20,7 @@ angular.module('SGTravelBuddy.travel')
                             coordinates: coordinates
                         };
                         if (hasUpdates) routeData['busStops'] = selectedBusStops;
-                        $http.post('/api/routes', routeData).success(success).error(error);
+                        $http.post(RemoteService.getBaseURL() + '/api/routes', routeData).success(success).error(error);
                     });
                 }
             };
@@ -103,7 +103,7 @@ angular.module('SGTravelBuddy.travel')
             };
 
             function updateRouteData(routeId, routeData, error) {
-                $http.put('/api/routes/' + routeId, routeData).success(function (nearBusStops) {
+                $http.put(RemoteService.getBaseURL() + '/api/routes/' + routeId, routeData).success(function (nearBusStops) {
                     var matchedNearBusStops = [];
                     var isArray = angular.isArray(nearBusStops);
                     selectedBusStops.forEach(function (stop) {

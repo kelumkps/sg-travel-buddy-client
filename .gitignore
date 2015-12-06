@@ -81,6 +81,7 @@ local.properties
 .settings/
 .loadpath
 .idea
+*.iml
 
 # External tool builders
 .externalToolBuilders/
@@ -137,3 +138,6 @@ bower_components
 
 ### Generated Sources ###
 public
+www
+platforms
+plugins

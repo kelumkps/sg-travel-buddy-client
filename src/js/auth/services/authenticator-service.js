@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SGTravelBuddy.auth', ['ngCookies'])
-    .service('Authenticator', ['$http', function ($http) {
+    .service('Authenticator', ['$http', 'RemoteService', function ($http, RemoteService) {
         this.login = function (user, success, error) {
             var authData = {
                 "grant_type": "password",
@@ -10,7 +10,7 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
                 "username": user.username,
                 "password": user.password
             };
-            $http.post('/oauth2/token', authData, {ignoreAuthModule: true}).success(function (res) {
+            $http.post(RemoteService.getBaseURL() + '/oauth2/token', authData, {ignoreAuthModule: true}).success(function (res) {
                 var userProfileReq = {
                     method: 'GET',
                     url: '/api/users',
@@ -34,8 +34,8 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
                 "username": user.username,
                 "password": user.password
             };
-            $http.post('/api/users', user, {ignoreAuthModule: true}).success(function (profile) {
-                $http.post('/oauth2/token', authData).success(function (res) {
+            $http.post(RemoteService.getBaseURL() + '/api/users', user, {ignoreAuthModule: true}).success(function (profile) {
+                $http.post(RemoteService.getBaseURL() + '/oauth2/token', authData).success(function (res) {
                     profile.oauth = res;
                     success(profile);
                 }).error(error);
@@ -43,7 +43,7 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
         };
 
         this.logout = function (success, refreshToken) {
-            $http.get('/oauth2/revoke', {params: {token: refreshToken}, ignoreAuthModule: true}).success(success).error(success);
+            $http.get(RemoteService.getBaseURL() + '/oauth2/revoke', {params: {token: refreshToken}, ignoreAuthModule: true}).success(success).error(success);
         };
 
         this.refreshTokens = function (refreshToken, success, error) {
@@ -53,6 +53,6 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
                 "client_secret": "welcome1",
                 "refresh_token": refreshToken
             };
-            $http.post('/oauth2/token', authData, {ignoreAuthModule: true}).success(success).error(error);
+            $http.post(RemoteService.getBaseURL() + '/oauth2/token', authData, {ignoreAuthModule: true}).success(success).error(error);
         };
     }]);
