@@ -45,24 +45,18 @@ angular.module('SGTravelBuddy')
             };
 
             function triggerNotification() {
-                var title = $translate.instant('views.modal.header');
-                var buttonName = $translate.instant('views.modal.button.okay');
                 var message = $scope.notificationMessage + '\n';
                 $scope.notifyStops.forEach(function (stop) {
                     message = message + stop._id + ' - ' + stop.name + '\n';
                 });
-                navigator.notification.beep(1);
+                cordova.plugins.notification.local.cancelAll();
+                cordova.plugins.notification.local.schedule({
+                    id: 1,
+                    text: message,
+                    badge: 1,
+                    led: "007DFF"
+                });
                 navigator.vibrate(1000);
-                navigator.notification.alert(
-                    message,
-                    alertDismissed,
-                    title,
-                    buttonName
-                );
-            };
-
-            function alertDismissed() {
-                $scope.notifyStops = [];
             };
 
         }]);
