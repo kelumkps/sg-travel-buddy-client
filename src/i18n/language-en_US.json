@@ -6,6 +6,8 @@
   "views.app.warning.prefix": "Warning!",
   "views.app.error.prefix": "Oh no!",
   "views.app.error.service.unavailable": "Service is currently unavailable. Please try again later.",
+  "views.app.exit.message": "Notifier is currently active. Are you sure to exit?",
+  "views.app.go.background.message": "You can press Home button to run app in background mode",
   "views.index.menu": "Menu",
   "views.index.chat": "Chat",
   "views.index.docs": "Docs",

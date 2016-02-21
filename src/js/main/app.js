@@ -90,39 +90,63 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
 }]);
 
-app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady',
-    function ($rootScope, $location, Authorizer, authService, deviceReady) {
+app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady', 'NotifierHttpService', '$translate',
+    function ($rootScope, $location, Authorizer, authService, deviceReady, NotifierHttpService, $translate) {
 
-    $rootScope.$on("$routeChangeStart", function (event, next, current) {
-        if (next && next.$$route.originalPath === ""
-            && next.$$route.redirectTo && next.$$route.redirectTo === "/") {
-            $location.path('/');
-        } else if (!Authorizer.authorize(next.access)) {
-            if (Authorizer.isLoggedIn()) $location.path('/');
-            else $location.path('/login');
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            if (next && next.$$route.originalPath === ""
+                && next.$$route.redirectTo && next.$$route.redirectTo === "/") {
+                $location.path('/');
+            } else if (!Authorizer.authorize(next.access)) {
+                if (Authorizer.isLoggedIn()) $location.path('/');
+                else $location.path('/login');
+            }
+        });
+
+        $rootScope.$on('event:auth-loginRequired', function () {
+            Authorizer.refreshTokens(function () {
+                authService.loginConfirmed();
+            }, function () {
+                $location.path('/login');
+            });
+        });
+
+        $rootScope.$on('event:auth-forbidden', function () {
+            Authorizer.logout(function () {
+                $location.path('/login');
+            });
+        });
+
+        deviceReady(function () {
+            var deviceInfo = 'cordova :' + device.cordova + ' model: ' + device.model
+                + ' platform: ' + device.platform + ' uuid: ' + device.uuid + ' version: ' + device.version
+                + ' isVirtual: ' + device.isVirtual + ' serial: ' + device.serial;
+            navigator.notification.alert('travel buddy info ' + deviceInfo);
+
+            document.addEventListener("backbutton", function (e) {
+                if ($location.path() == '/') {
+                    if (NotifierHttpService.isNotifierOn()) {
+                        navigator.notification.confirm($translate.instant('views.app.exit.message'), function (result) {
+                            if (result == 1) {
+                                e.preventDefault();
+                                navigator.app.exitApp();
+                            } else {
+                                window.plugins.toast.showShortBottom($translate.instant('views.app.go.background.message'));
+                            }
+                        });
+                    } else {
+                        e.preventDefault();
+                        navigator.app.exitApp();
+                    }
+                } else {
+                    navigator.app.backHistory();
+                }
+            }, false);
+        });
+
+        function checkForExit() {
+            return ($location.path() == '/' && NotifierHttpService.isNotifierOn());
         }
-    });
 
-    $rootScope.$on('event:auth-loginRequired', function () {
-        Authorizer.refreshTokens(function () {
-            authService.loginConfirmed();
-        }, function () {
-            $location.path('/login');
-        });
-    });
-
-    $rootScope.$on('event:auth-forbidden', function () {
-        Authorizer.logout(function () {
-            $location.path('/login');
-        });
-    });
-
-    deviceReady(function () {
-        var deviceInfo = 'cordova :' + device.cordova + ' model: ' + device.model
-            + ' platform: ' + device.platform + ' uuid: ' + device.uuid + ' version: ' + device.version
-            + ' isVirtual: ' + device.isVirtual+ ' serial: ' + device.serial;
-        alert('travel buddy info '+ deviceInfo);
-    });
-
-}]);
+    }]);
 

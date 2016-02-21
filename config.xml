@@ -28,7 +28,6 @@
     <gap:plugin name="org.apache.cordova.media-capture" />
     <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.contacts" />
-    <gap:plugin name="org.apache.cordova.device" />
     <gap:plugin name="org.apache.cordova.device-motion" />
     <gap:plugin name="org.apache.cordova.device-orientation" />
     <gap:plugin name="org.apache.cordova.dialogs" />
@@ -86,5 +85,6 @@
     <plugin name="cordova-plugin-dialogs" spec="^1.2.0" />
     <plugin name="cordova-plugin-vibration" spec="^2.0.0" />
     <plugin name="de.appplant.cordova.plugin.local-notification" spec="~0.8.4" />
+    <plugin name="cordova-plugin-x-toast" spec="~2.4.2" />
     <engine name="android" spec="~5.1.0" />
 </widget>
