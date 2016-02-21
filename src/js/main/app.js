@@ -98,8 +98,12 @@ app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady', 
                 && next.$$route.redirectTo && next.$$route.redirectTo === "/") {
                 $location.path('/');
             } else if (!Authorizer.authorize(next.access)) {
-                if (Authorizer.isLoggedIn()) $location.path('/');
-                else $location.path('/login');
+                if (Authorizer.isLoggedIn()) {
+                    $location.path('/');
+                } else {
+                    $location.path('/login');
+                    window.plugins.toast.showShortCenter($translate.instant('view.app.login.required.message'));
+                }
             }
         });
 
