@@ -11,7 +11,8 @@ angular.module('SGTravelBuddy')
                 Authorizer.register({
                         name: $scope.uname,
                         username: $scope.email,
-                        password: $scope.password
+                        password: $scope.password,
+                        rememberMe: true
                     },
                     function () {
                         $scope.loading = false;

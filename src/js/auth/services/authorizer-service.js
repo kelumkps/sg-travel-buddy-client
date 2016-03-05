@@ -1,16 +1,16 @@
 'use strict';
 
 angular.module('SGTravelBuddy.auth')
-    .factory('Authorizer', ['$rootScope', '$cookieStore', 'Authenticator', function ($rootScope, $cookieStore, Authenticator) {
+    .factory('Authorizer', ['$rootScope', 'Authenticator', function ($rootScope, Authenticator) {
 
         var accessLevels = authConfig.accessLevels
             , userRoles = authConfig.userRoles
-            , currentUser = $cookieStore.get('user') || {name: 'Guest', username: '', role: userRoles.public};
+            , currentUser = JSON.parse(window.localStorage.getItem('user')) || {name: 'Guest', username: '', role: userRoles.public};
         $rootScope.userName = currentUser.name || 'Welcome';
 
         function changeUser(user) {
-            if (user.rememberMe) $cookieStore.put('user', user);
-            else $cookieStore.remove('user');
+            if (user.rememberMe) window.localStorage.setItem('user', JSON.stringify(user));
+            else window.localStorage.removeItem('user');
             angular.extend(currentUser, user);
             $rootScope.userName = user.name || 'Welcome';
         }

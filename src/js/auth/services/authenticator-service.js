@@ -13,7 +13,7 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
             $http.post(RemoteService.getBaseURL() + '/oauth2/token', authData, {ignoreAuthModule: true}).success(function (res) {
                 var userProfileReq = {
                     method: 'GET',
-                    url: '/api/users',
+                    url: RemoteService.getBaseURL() + '/api/users',
                     headers: {
                         'Authorization': 'Bearer ' + res.access_token
                     }
@@ -37,6 +37,7 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
             $http.post(RemoteService.getBaseURL() + '/api/users', user, {ignoreAuthModule: true}).success(function (profile) {
                 $http.post(RemoteService.getBaseURL() + '/oauth2/token', authData).success(function (res) {
                     profile.oauth = res;
+                    profile.rememberMe = user.rememberMe;
                     success(profile);
                 }).error(error);
             }).error(error);
