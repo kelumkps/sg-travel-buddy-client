@@ -100,6 +100,7 @@ gulp.task('clean', function (cb) {
     return gulp.src([
         path.join(config.dest, 'index.html'),
         path.join(config.dest, 'images'),
+        path.join(config.dest, 'res'),
         path.join(config.dest, 'css'),
         path.join(config.dest, 'js'),
         path.join(config.dest, 'fonts')
@@ -153,6 +154,15 @@ gulp.task('images', function () {
 gulp.task('fonts', function () {
     return gulp.src(config.vendor.fonts)
         .pipe(gulp.dest(path.join(config.dest, 'fonts')));
+});
+
+/*==================================
+ =            Copy res directory    =
+ ==================================*/
+
+gulp.task('res', function () {
+    return gulp.src('res/**/*')
+        .pipe(gulp.dest(path.join(config.dest, 'res')));
 });
 
 
@@ -269,7 +279,7 @@ gulp.task('weinre', function () {
  ======================================*/
 
 gulp.task('build', function (done) {
-    var tasks = ['html', 'fonts', 'images', 'less', 'js'];
+    var tasks = ['html', 'fonts', 'images', 'less', 'js', 'res'];
     seq('clean', tasks, done);
 });
 

@@ -54,7 +54,8 @@ angular.module('SGTravelBuddy')
                     id: 1,
                     text: message,
                     badge: 1,
-                    led: "007DFF"
+                    led: "007DFF",
+                    icon: "res://drawable-hdpi-v4/icon.png"
                 });
                 navigator.vibrate(1000);
             };
