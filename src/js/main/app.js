@@ -83,6 +83,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
                 if (Authorizer.isLoggedIn()) {
                     $config.headers.Authorization = 'Bearer ' + Authorizer.user.oauth.access_token;
                 }
+                var RemoteService = $injector.get("RemoteService");
+                var deviceId = RemoteService.getDeviceId();
+                if (deviceId != undefined && deviceId  != "") {
+                    $config.headers['device-id'] = deviceId;
+                }
                 return $config;
             }
         };
@@ -90,8 +95,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 
 }]);
 
-app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady', 'NotifierHttpService', '$translate',
-    function ($rootScope, $location, Authorizer, authService, deviceReady, NotifierHttpService, $translate) {
+app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady', 'NotifierHttpService', '$translate', 'RemoteService',
+    function ($rootScope, $location, Authorizer, authService, deviceReady, NotifierHttpService, $translate, RemoteService) {
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             if (next && next.$$route.originalPath === ""
@@ -122,11 +127,7 @@ app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady', 
         });
 
         deviceReady(function () {
-            var deviceInfo = 'cordova :' + device.cordova + ' model: ' + device.model
-                + ' platform: ' + device.platform + ' uuid: ' + device.uuid + ' version: ' + device.version
-                + ' isVirtual: ' + device.isVirtual + ' serial: ' + device.serial;
-            navigator.notification.alert('travel buddy info ' + deviceInfo);
-
+            RemoteService.sendDeviceInfo();
             document.addEventListener("backbutton", function (e) {
                 if ($location.path() == '/') {
                     if (NotifierHttpService.isNotifierOn()) {
@@ -145,6 +146,14 @@ app.run(['$rootScope', '$location', 'Authorizer', 'authService', 'deviceReady', 
                 } else {
                     navigator.app.backHistory();
                 }
+            }, false);
+
+            document.addEventListener("online", function () {
+                RemoteService.sendDeviceInfo();
+            }, false);
+
+            document.addEventListener("offline", function () {
+                window.plugins.toast.showShortBottom($translate.instant('views.app.go.offline.message'));
             }, false);
         });
 

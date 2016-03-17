@@ -9,6 +9,7 @@
   "views.app.exit.message": "Notifier is currently active. Are you sure to exit?",
   "views.app.go.background.message": "You can press Home button to run app in background mode",
   "view.app.login.required.message": "Please login to perform this action",
+  "views.app.go.offline.message": "No Connection",
   "views.index.menu": "Menu",
   "views.index.chat": "Chat",
   "views.index.docs": "Docs",
