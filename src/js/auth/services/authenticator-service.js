@@ -55,4 +55,8 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
             };
             $http.post('/oauth2/token', authData, {ignoreAuthModule: true}).success(success).error(error);
         };
+
+        this.resetPassword = function (email, success, error) {
+            $http.post('/password_reset', {"email" : email}, {ignoreAuthModule: true}).success(success).error(error);
+        };
     }]);

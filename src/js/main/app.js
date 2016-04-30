@@ -36,6 +36,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
             access: access.guest,
             reloadOnSearch: false
         });
+    $routeProvider.when('/password-reset',
+        {
+            templateUrl: 'forgot-password.html',
+            controller: 'PasswordResetCtrl',
+            access: access.guest,
+            reloadOnSearch: false
+        });
     $routeProvider.when('/settings',
         {
             templateUrl: 'settings.html',
