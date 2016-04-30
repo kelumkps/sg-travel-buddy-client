@@ -63,6 +63,9 @@ angular.module('SGTravelBuddy.auth')
                     success();
                 }, error);
             },
+            resetPassword : function (email, success, error) {
+                Authenticator.resetPassword(email, success, error);
+            },
             accessLevels: accessLevels,
             userRoles: userRoles,
             user: currentUser
