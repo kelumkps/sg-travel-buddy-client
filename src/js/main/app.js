@@ -3,6 +3,7 @@
 var app = angular.module('SGTravelBuddy', [
     'ngRoute',
     'mobile-angular-ui',
+    'mobile-angular-ui.gestures',
     'http-auth-interceptor',
     'SGTravelBuddy.cordova',
     'SGTravelBuddy.util',
@@ -48,6 +49,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
     $routeProvider.when('/settings',
         {
             templateUrl: 'settings.html',
+            controller: 'SettingsCtrl',
             access: access.user,
             reloadOnSearch: false
         });

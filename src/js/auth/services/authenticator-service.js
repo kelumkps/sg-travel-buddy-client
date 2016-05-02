@@ -60,4 +60,13 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
         this.resetPassword = function (email, success, error) {
             $http.post(RemoteService.getBaseURL() + '/password_reset', {"email" : email}, {ignoreAuthModule: true}).success(success).error(error);
         };
+
+        this.updateUserProfile = function(profile, success, error) {
+            var userData = {};
+            if (profile.name) userData["name"] = profile.name;
+            if (profile.currentPassword) userData["currentPassword"] = profile.currentPassword;
+            if (profile.newPassword) userData["newPassword"] = profile.newPassword;
+            if (profile.distance) userData["distance"] = profile.distance;
+            $http.put('/api/users', userData).success(success).error(error);
+        }
     }]);

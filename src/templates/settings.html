@@ -1,3 +1,104 @@
-<section class="section container-fluid">
-    <h1 class="page-header">{{"views.404.error.message" | translate}}</h1>
-</section>
+<div class="scrollable">
+    <div class="scrollable-content section">
+        <div ng-include="'alerts.html'"></div>
+        <div class="panel-group"
+             ui-state='myAccordion'
+             ui-default='2'>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" ui-set="{'myAccordion': 1}">
+                    <h4 class="panel-title">
+                        {{"views.settings.header.personal" | translate}}
+                    </h4>
+                </div>
+
+                <div ui-if="myAccordion == 1">
+                    <div class="panel-body">
+                        <div ng-if="isEditPersonal">
+                            <form name="updatePersonalsForm" role="form" ng-submit='updatePersonals()'>
+                                <fieldset>
+                                    <div class="form-group has-success has-feedback">
+                                        <label>{{"views.register.name" | translate}}</label>
+                                        <input type="text"
+                                               ng-model="profile.name"
+                                               class="form-control"
+                                               placeholder="{{'views.settings.name.message' | translate}}"
+                                               ng-required="true">
+                                    </div>
+                                    <div class="form-group has-success has-feedback">
+                                        <label>{{"views.settings.password.current" | translate}}</label>
+                                        <input type="password"
+                                               ng-model="profile.currentPassword"
+                                               class="form-control"
+                                               placeholder="{{'views.settings.password.current.message' | translate}}"
+                                               ng-change="passwordChanged()"
+                                               ng-required="false">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>{{"views.settings.password.new" | translate}} A</label>
+                                        <input type="password"
+                                               ng-model="profile.newPassword"
+                                               class="form-control"
+                                               placeholder="{{'views.settings.password.new.message' | translate}}"
+                                               ng-required="profile.isPasswordChanged">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>{{"views.settings.password.confirm" | translate}}</label>
+                                        <input type="password"
+                                               ng-model="profile.confirmPassword"
+                                               class="form-control"
+                                               placeholder="{{'views.settings.password.confirm.message' | translate}}"
+                                               ng-required="profile.isPasswordChanged">
+                                    </div>
+
+                                    <button class="btn btn-primary btn-sm pull-right">
+                                        {{"views.settings.btn.update" | translate}}
+                                        <span ng-show="loadingPersonal"><i class="fa fa-spinner fa-spin"></i></span>
+                                    </button>
+                                </fieldset>
+                                <br>
+                            </form>
+                        </div>
+                        <div ng-if="!isEditPersonal">
+                            <label>{{"views.register.name" | translate}} : {{profile.name}}</label>
+                            <br>
+                            <label>{{"views.login.email" | translate}} : {{email}}</label>
+                            <br>
+                            <a ng-click="enableEditPersonal()" class="btn-link pull-right">
+                                {{"views.settings.link.edit" | translate}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" ui-set="{'myAccordion': 2}">
+
+                    <h4 class="panel-title">
+                        {{"views.settings.header.app" | translate}}
+                    </h4>
+                </div>
+                <div ui-if="myAccordion == 2">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>{{"views.settings.distance.range" | translate}}</label>
+                            <div>
+                                <div touch-area="distanceCallback" class="progress" style="width:95%;">
+                                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{progressValue}}%;">
+                                        {{distanceValue | number:0}}{{"views.settings.distance.unit" | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <button ng-if="isEditApp" ng-click="updateAppSettings()" class="btn btn-primary btn-sm pull-right">
+                                {{"views.settings.btn.update" | translate}}
+                                <span ng-show="loadingApp"><i class="fa fa-spinner fa-spin"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

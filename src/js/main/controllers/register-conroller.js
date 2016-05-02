@@ -6,7 +6,7 @@ angular.module('SGTravelBuddy')
         $scope.messages = {};
         $scope.loading = false;
         $scope.register = function () {
-            if ($scope.password === $scope.confirmPassword) {
+            if (angular.equals($scope.password, $scope.confirmPassword)) {
                 $scope.loading = true;
                 Authorizer.register({
                         name: $scope.uname,

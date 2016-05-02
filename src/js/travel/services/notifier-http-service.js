@@ -19,6 +19,9 @@ angular.module('SGTravelBuddy.travel')
                         var routeData = {
                             coordinates: coordinates
                         };
+                        if (Authorizer.user.distance && Authorizer.user.distance >= 100) {
+                            routeData['distanceLimit'] = Authorizer.user.distance;
+                        }
                         if (hasUpdates) routeData['busStops'] = selectedBusStops;
                         $http.post(RemoteService.getBaseURL() + '/api/routes', routeData).success(success).error(error);
                     });
