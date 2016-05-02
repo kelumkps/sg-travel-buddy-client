@@ -36,7 +36,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>{{"views.settings.password.new" | translate}} A</label>
+                                        <label>{{"views.settings.password.new" | translate}}</label>
                                         <input type="password"
                                                ng-model="profile.newPassword"
                                                class="form-control"
@@ -52,7 +52,9 @@
                                                placeholder="{{'views.settings.password.confirm.message' | translate}}"
                                                ng-required="profile.isPasswordChanged">
                                     </div>
-
+                                    <a ng-click="disableEditPersonal()" class="btn btn-default btn-sm pull-left">
+                                        {{"views.settings.btn.cancel" | translate}}
+                                    </a>
                                     <button class="btn btn-primary btn-sm pull-right">
                                         {{"views.settings.btn.update" | translate}}
                                         <span ng-show="loadingPersonal"><i class="fa fa-spinner fa-spin"></i></span>
