@@ -67,6 +67,6 @@ angular.module('SGTravelBuddy.auth', ['ngCookies'])
             if (profile.currentPassword) userData["currentPassword"] = profile.currentPassword;
             if (profile.newPassword) userData["newPassword"] = profile.newPassword;
             if (profile.distance) userData["distance"] = profile.distance;
-            $http.put('/api/users', userData).success(success).error(error);
+            $http.put(RemoteService.getBaseURL() + '/api/users', userData).success(success).error(error);
         }
     }]);

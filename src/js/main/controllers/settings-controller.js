@@ -27,7 +27,7 @@ angular.module('SGTravelBuddy')
 
         $scope.enableEditPersonal = function () {
             $scope.isEditPersonal = true;
-            $scope.messages.info = $translate.instant('views.settings.edit.password.nochange.message');
+            window.plugins.toast.showShortCenter($translate.instant('views.settings.edit.password.nochange.message'));
         };
         $scope.distanceCallback = function (percentage) {
             if (percentage > 100) percentage = 100;
