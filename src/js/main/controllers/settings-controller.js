@@ -30,6 +30,7 @@ angular.module('SGTravelBuddy')
             window.plugins.toast.showShortCenter($translate.instant('views.settings.edit.password.nochange.message'));
         };
         $scope.disableEditPersonal = function () {
+            $scope.profile.name = Authorizer.user.name;
             $scope.isEditPersonal = false;
         };
         $scope.distanceCallback = function (percentage) {
