@@ -32,6 +32,10 @@ angular.module('SGTravelBuddy')
         $scope.disableEditPersonal = function () {
             $scope.profile.name = Authorizer.user.name;
             $scope.isEditPersonal = false;
+            $scope.profile.currentPassword = undefined;
+            $scope.profile.newPassword = undefined;
+            $scope.profile.confirmPassword = undefined;
+            $scope.profile.isPasswordChanged = false;
         };
         $scope.distanceCallback = function (percentage) {
             if (percentage > 100) percentage = 100;
