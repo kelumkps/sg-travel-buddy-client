@@ -3,7 +3,7 @@
 var app = angular.module('SGTravelBuddy', [
     'ngRoute',
     'mobile-angular-ui',
-    'mobile-angular-ui.gestures',
+    'mobile-angular-ui.gestures.touch',
     'http-auth-interceptor',
     'SGTravelBuddy.cordova',
     'SGTravelBuddy.util',
