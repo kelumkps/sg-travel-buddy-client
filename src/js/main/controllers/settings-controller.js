@@ -38,7 +38,6 @@ angular.module('SGTravelBuddy')
             $scope.profile.isPasswordChanged = false;
         };
         $scope.distanceCallback = function (percentage) {
-            if (percentage > 100) percentage = 100;
             $scope.isEditApp = true;
             $scope.progressValue = percentage;
             var updatedDistance = minDistance + ((maxDistance - minDistance) * percentage / 100);
