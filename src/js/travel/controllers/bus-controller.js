@@ -12,7 +12,9 @@ angular.module('SGTravelBuddy.travel')
                     $scope.showTabs = true;
                     $scope.showSecondTab = (bus.routes == 2);
                     $scope.busNumber = bus._id;
-                    $scope.busName = bus.name;
+                    $scope.routeOneName = bus.routeOneName;
+                    $scope.routeTwoName = bus.routeTwoName;
+                    $scope.busName = bus.routeOneName;
                     $scope.routeOneStops = bus.routeOneStops;
                     $scope.routeTwoStops = bus.routeTwoStops;
                     setNotificationStatus($scope.routeOneStops);
@@ -81,5 +83,13 @@ angular.module('SGTravelBuddy.travel')
                     });
                 }
             };
+
+            $scope.$on('mobile-angular-ui.state.changed.activeTab', function(e, newVal, oldVal) {
+                if (newVal == 2) {
+                    $scope.busName = $scope.routeTwoName;
+                } else {
+                    $scope.busName = $scope.routeOneName;
+                }
+            });
 
         }]);
