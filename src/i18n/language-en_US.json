@@ -1,6 +1,6 @@
 {
   "views.app.title": "SG Travel Buddy",
-  "views.app.version": "v0.1\u03b2",
+  "views.app.version": "v1.0.0",
   "views.app.success.prefix": "Success!",
   "views.app.info.prefix": "Note!",
   "views.app.warning.prefix": "Warning!",
