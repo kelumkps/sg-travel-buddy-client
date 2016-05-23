@@ -5,9 +5,21 @@ angular.module('SGTravelBuddy.util', [])
         var baseURL = "https://sg-travelbuddy.rhcloud.com";
         var appVersion = "1.0.0";
         var deviceId;
+        var isAppUrlLoaded = false;
 
         this.getBaseURL = function () {
-            return baseURL;
+            if (isAppUrlLoaded) {
+                return baseURL;
+            } else {
+                var appUrl = window.localStorage.getItem('app_url');
+                if (appUrl == undefined || appUrl === "") {
+                    return baseURL;
+                } else {
+                    baseURL = appUrl;
+                    isAppUrlLoaded = true;
+                    return baseURL;
+                }
+            }
         };
 
         this.sendDeviceInfo = function () {
@@ -24,9 +36,11 @@ angular.module('SGTravelBuddy.util', [])
                     appVersion: appVersion
                 };
 
-                $http.post(baseURL + '/api/deviceInfo', deviceInfo).success(function (response) {
+                $http.post(this.getBaseURL() + '/api/deviceInfo', deviceInfo).success(function (response) {
                     deviceId = response._id;
                     window.localStorage.setItem('device_id', deviceId);
+                    var appUrl = response.appUrl;
+                    if (appUrl) window.localStorage.setItem('app_url', appUrl);
                     if (angular.isArray(response.notifications) && response.notifications.length > 0) {
                         var notification = response.notifications[0];
                         var buttonName = $translate.instant('views.modal.button.okay');
@@ -50,6 +64,5 @@ angular.module('SGTravelBuddy.util', [])
             }
             return deviceId;
         };
-
 
     }]);
